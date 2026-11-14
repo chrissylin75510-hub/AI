@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彰化社區大學｜玩轉AI英語力：暖心開口說</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Google Fonts: Noto Sans TC 確保繁體中文清晰易讀 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        warmBg: '#FDFBF7',
+                        warmCard: '#FFFFFF',
+                        amberPrimary: '#D97706',
+                        amberLight: '#FEF3C7',
+                        tealAccent: '#0D9488',
+                        tealLight: '#CCFBF1',
+                        roseSoft: '#E11D48',
+                        roseLight: '#FFE4E6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 自訂基礎字體縮放變數，支援高齡友善字體切換 */
+        :root {
+            --font-scale: 1;
+        }
+        body {
+            font-size: calc(16px * var(--font-scale));
+            background-color: #FDFBF7;
+            color: #1E293B;
+            line-height: 1.7;
+            transition: font-size 0.2s ease-in-out;
+        }
+        /* 列印樣式優化 */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #FFFFFF !important;
+                font-size: 12pt !important;
+            }
+            .shadow-md, .shadow-lg, .shadow-sm {
+                box-shadow: none !important;
+                border: 1px solid #E2E8F0 !important;
+            }
+            .break-inside-avoid {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- 頂部功能導覽列 (無障礙字體調整與快速操作) -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200 shadow-sm no-print">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-amber-600 text-white font-bold text-lg shadow-sm">彰</span>
+                <span class="font-bold text-slate-800 tracking-wide text-base sm:text-lg">彰化社區大學 課程專頁</span>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                <!-- 字體大小切換器 -->
+                <div class="flex items-center bg-amber-50 p-1 rounded-xl border border-amber-200" role="group" aria-label="字體大小調整">
+                    <span class="text-xs font-medium text-amber-800 px-2 hidden sm:inline">字體大小：</span>
+                    <button onclick="setFontScale(1, this)" class="font-btn px-3 py-1.5 rounded-lg text-sm font-bold bg-amber-600 text-white shadow-sm transition">標準</button>
+                    <button onclick="setFontScale(1.18, this)" class="font-btn px-3 py-1.5 rounded-lg text-sm font-bold text-amber-900 hover:bg-amber-200/60 transition">放大</button>
+                    <button onclick="setFontScale(1.35, this)" class="font-btn px-3 py-1.5 rounded-lg text-sm font-bold text-amber-900 hover:bg-amber-200/60 transition">特大</button>
+                </div>
+
+                <!-- 複製文字按鈕 -->
+                <button onclick="copyCourseText()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 active:scale-95 text-white text-sm font-bold shadow-sm transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    <span>複製文字稿</span>
+                </button>
+
+                <!-- 列印按鈕 -->
+                <button onclick="window.print()" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold border border-slate-300 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    <span>列印課表</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 訊息提示框 (取代 alert) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none no-print">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-700">
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-teal-500 text-white text-sm font-bold">✓</span>
+            <span id="toast-msg" class="font-medium text-sm sm:text-base">已成功複製完整課程文字稿！</span>
+        </div>
+    </div>
+
+    <!-- 主視覺橫幅 (Hero Banner) -->
+    <header class="relative overflow-hidden bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 text-white py-12 sm:py-16 px-4 shadow-md">
+        <!-- 裝飾圓形背景 -->
+        <div class="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -mb-16 -ml-16 w-72 h-72 rounded-full bg-yellow-300/20 blur-2xl pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto relative z-10">
+            <!-- 特色標籤 -->
+            <div class="flex flex-wrap gap-2 mb-5">
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-bold border border-white/30">
+                    <span>🏫</span> 彰化社區大學 18週精選課程
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-900/30 backdrop-blur-sm text-amber-50 text-sm font-bold border border-white/20">
+                    <span>🤝</span> 20–80歲 跨世代共學
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-900/30 backdrop-blur-sm text-teal-50 text-sm font-bold border border-white/20">
+                    <span>🤖</span> AI數位工具 × 社會情緒學習
+                </span>
+            </div>
+
+            <!-- 課程名稱 -->
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight mb-4 leading-tight drop-shadow-sm">
+                玩轉AI英語力：暖心開口說
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-amber-50 max-w-3xl font-medium leading-relaxed mb-8">
+                不需要死背單字與文法！結合最實用的手機AI工具與溫暖的跨世代陪伴，讓您在沒有壓力的歡笑聲中，自信說出生活英語、認識彰化在地文化。
+            </p>
+
+            <!-- 核心亮點快速卡片 -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25">
+                    <div class="text-2xl mb-1">❤️ 社會情緒學習 (SEL)</div>
+                    <p class="text-sm text-amber-50">覺察情緒、同理傾聽，打造零嘲笑、充滿鼓勵的學習環境。</p>
+                </div>
+                <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25">
+                    <div class="text-2xl mb-1">📱 實用資訊素養</div>
+                    <p class="text-sm text-amber-50">善用AI隨身家教練發音，更學會辨識真假英文訊息與防詐。</p>
+                </div>
+                <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25">
+                    <div class="text-2xl mb-1">🏮 在地文化連結</div>
+                    <p class="text-sm text-amber-50">走讀八卦山與品嚐彰化美食，用簡單英語向世界介紹家鄉。</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main id="course-content" class="max-w-5xl mx-auto px-4 py-10 space-y-10">
+
+        <!-- 第一區塊：課程理念 & 課程目標 -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- 課程理念 -->
+            <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-amber-100 flex flex-col justify-between break-inside-avoid">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-100 text-amber-800 font-bold text-sm mb-4">
+                        <span>💡</span> 課程理念
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-3">打破焦慮，溫暖共學</h2>
+                    <p class="text-slate-700 leading-relaxed font-medium bg-amber-50/70 p-4 rounded-2xl border border-amber-100">
+                        打破年齡與科技焦慮，結合AI數位工具與社會情緒學習，讓跨世代學員在溫暖互助中，從零壓力開口說到自信應用生活英語。
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500">
+                    <span>授課時數：18週完整規劃</span>
+                    <span class="text-amber-600 font-bold">零基礎友善</span>
+                </div>
+            </div>
+
+            <!-- 課程目標 -->
+            <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-teal-100 break-inside-avoid">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-teal-100 text-teal-800 font-bold text-sm mb-4">
+                    <span>🎯</span> 課程目標
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-3">知識、技能、品德與在地連結</h2>
+                <p class="text-slate-700 leading-relaxed mb-5">
+                    因應數位與雙語時代，本課結合基礎生活英語與AI語音辨識、資訊判讀知識，培養跨世代溝通、數位應用及情緒覺察技能。透過小組共學建立自信、同理與樂學態度，最終能以英語向世界介紹彰化在地文化，深化個人與社區、國際的溫暖連結。
+                </p>
+                <!-- 目標四大面向標籤 -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div class="bg-slate-50 rounded-xl p-3 text-center border border-slate-200/70">
+                        <div class="text-teal-600 font-bold text-sm">學科知識</div>
+                        <div class="text-xs text-slate-500 mt-0.5">生活英語與資訊判讀</div>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-3 text-center border border-slate-200/70">
+                        <div class="text-teal-600 font-bold text-sm">實用技能</div>
+                        <div class="text-xs text-slate-500 mt-0.5">AI應用與情緒覺察</div>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-3 text-center border border-slate-200/70">
+                        <div class="text-teal-600 font-bold text-sm">品德態度</div>
+                        <div class="text-xs text-slate-500 mt-0.5">自信同理與樂學精神</div>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-3 text-center border border-slate-200/70">
+                        <div class="text-teal-600 font-bold text-sm">社區連結</div>
+                        <div class="text-xs text-slate-500 mt-0.5">在地導覽與國際接軌</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二區塊：條件限制、發展計畫、教學設計 -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- 條件限制 -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-rose-100 break-inside-avoid">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-rose-100 text-rose-800 font-bold text-sm mb-3">
+                    <span>📋</span> 條件限制（學員資格）
+                </div>
+                <p class="text-slate-700 leading-relaxed">
+                    本課程為初階生活應用程度，歡迎20至80歲對英語及數位科技有興趣的民眾報名。無須具備英文基礎或文法底子，僅需能辨識26個英文字母，並自備可上網之智慧型手機，抱持開放與樂於分享的心即可輕鬆參與。
+                </p>
+            </div>
+
+            <!-- 發展計畫 -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-indigo-100 break-inside-avoid">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-indigo-100 text-indigo-800 font-bold text-sm mb-3">
+                    <span>🌱</span> 發展計畫
+                </div>
+                <p class="text-slate-700 leading-relaxed">
+                    未來將進階開設「彰化在地雙語導覽」與「跨世代數位故事館」，整合社大走讀課程與社區資源，培訓高齡與青年雙語志工。
+                </p>
+            </div>
+
+            <!-- 教學設計 -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-amber-200 break-inside-avoid">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-100 text-amber-800 font-bold text-sm mb-3">
+                    <span>✨</span> 教學設計亮點（第5週）
+                </div>
+                <p class="text-slate-700 leading-relaxed">
+                    第5週「AI翻譯官與情緒溫度計」：先以情緒圖卡暖身破冰，講師示範AI語音翻譯設定，分組演練點餐與表達感受，最後分享心得。
+                </p>
+            </div>
+        </section>
+
+        <!-- 第三區塊：多元授課方式 -->
+        <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 break-inside-avoid">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-100 text-slate-800 font-bold text-sm mb-2">
+                        <span>🎨</span> 授課方式
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">八大互動教學法，讓學習生動不枯燥</h2>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-100">
+                    <span class="text-xl">👥</span>
+                    <span class="font-bold text-slate-800">團體互動及小組活動</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-100">
+                    <span class="text-xl">💬</span>
+                    <span class="font-bold text-slate-800">案例討論與心得分享</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-teal-50/80 border border-teal-100">
+                    <span class="text-xl">🎬</span>
+                    <span class="font-bold text-slate-800">影片欣賞及圖像教學</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-teal-50/80 border border-teal-100">
+                    <span class="text-xl">🚶</span>
+                    <span class="font-bold text-slate-800">戶外參訪及環境關懷</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-rose-50/80 border border-rose-100">
+                    <span class="text-xl">📱</span>
+                    <span class="font-bold text-slate-800">講師示範與實際操作</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-rose-50/80 border border-rose-100">
+                    <span class="text-xl">🤝</span>
+                    <span class="font-bold text-slate-800">個別指導與反覆練習</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-100">
+                    <span class="text-xl">🎭</span>
+                    <span class="font-bold text-slate-800">學員上台表演與展現</span>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-100">
+                    <span class="text-xl">🧺</span>
+                    <span class="font-bold text-slate-800">實物觀賞及樣品教學</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四區塊：第1~18週課程大綱 -->
+        <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-amber-200/80">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-100 text-amber-800 font-bold text-sm mb-2">
+                        <span>📅</span> 18週完整課表
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-800">課程大綱一覽表</h2>
+                    <p class="text-slate-600 mt-1">循序漸進從自我介紹、AI工具操作，一路走到戶外導覽與期末成果展！</p>
+                </div>
+
+                <!-- 篩選器按鈕 (互動功能，方便學員快速查看重點週次) -->
+                <div class="flex flex-wrap gap-2 no-print">
+                    <button onclick="filterWeeks('all', this)" class="filter-btn px-3.5 py-1.5 rounded-xl text-sm font-bold bg-slate-800 text-white transition">全部18週</button>
+                    <button onclick="filterWeeks('sel', this)" class="filter-btn px-3.5 py-1.5 rounded-xl text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 transition">❤️ 社會情緒</button>
+                    <button onclick="filterWeeks('ai', this)" class="filter-btn px-3.5 py-1.5 rounded-xl text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 border border-teal-200 transition">🤖 AI與資訊素養</button>
+                    <button onclick="filterWeeks('local', this)" class="filter-btn px-3.5 py-1.5 rounded-xl text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 transition">🏮 彰化在地生活</button>
+                </div>
+            </div>
+
+            <!-- 響應式表格容器 -->
+            <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-amber-600 text-white">
+                            <th class="py-4 px-4 sm:px-6 font-bold w-24 sm:w-28 whitespace-nowrap">週次</th>
+                            <th class="py-4 px-4 sm:px-6 font-bold w-1/3">主題</th>
+                            <th class="py-4 px-4 sm:px-6 font-bold">課程內容</th>
+                        </tr>
+                    </thead>
+                    <tbody id="syllabus-tbody" class="divide-y divide-slate-200 bg-white">
+                        <!-- 由 JavaScript 動態渲染 18 週資料，確保資料完整與可篩選 -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾資訊 -->
+    <footer class="bg-slate-900 text-slate-300 py-10 px-4 mt-12">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <h3 class="text-white font-bold text-lg">彰化社區大學｜終身學習・跨世代共好</h3>
+                <p class="text-sm text-slate-400 mt-1">課程名稱：玩轉AI英語力：暖心開口說（18週課程）</p>
+            </div>
+            <div class="flex gap-3 no-print">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium border border-slate-700 transition">
+                    ↑ 回到頂部
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 完整 18 週課程大綱資料 (嚴格保留您指定的第9週與第18週字樣與結構)
+        const syllabusData = [
+            { week: "第1週", topic: "破冰相見歡：我的名字與心情", content: "認識跨世代同學，學習用簡單英語自我介紹與表達當下情緒，建立溫暖無壓力的共學契約。", tags: ["sel"] },
+            { week: "第2週", topic: "手機變身隨身英語家教", content: "認識免費AI語音與學習工具，練習正確發音與聽力辨識，克服長輩與初學者對科技與開口的恐懼。", tags: ["ai"] },
+            { week: "第3週", topic: "每日情緒天氣晴：用英語說出感受", content: "融入社會情緒學習（SEL），認識喜怒哀樂等核心情緒單字，練習傾聽夥伴並給予暖心英語回應。", tags: ["sel"] },
+            { week: "第4週", topic: "晨光咖啡廳：生活問候與點餐", content: "模擬咖啡廳情境，學習日常寒暄與點餐句型，透過小組角色扮演提升口說流暢度與互動樂趣。", tags: ["local"] },
+            { week: "第5週", topic: "AI翻譯官與情緒溫度計", content: "實作AI即時語音翻譯與語氣調整，辨識「禮貌」與「生氣」的語調差異，學習高情商的英語表達。", tags: ["ai", "sel"] },
+            { week: "第6週", topic: "傳統市場尋寶記：蔬果與殺價", content: "結合彰化在地市場文化，認識常見食材英語，並以實物樣品進行分組買賣競賽，趣味記憶單字。", tags: ["local"] },
+            { week: "第7週", topic: "資訊素養第一課：真假英文訊息辨識", content: "結合資訊素養，教導辨識常見英文釣魚簡訊、詐騙連結與假新聞標題，提升數位時代的自我保護力。", tags: ["ai"] },
+            { week: "第8週", topic: "身體小警報：藥局與看診實用英語", content: "學習常見身體不適症狀的英語表達，結合AI圖像辨識外國藥品說明書，守護自己與家人的健康。", tags: ["ai", "local"] },
+            { week: "第9週", topic: "公民素養週", content: "由彰化社區大學安排", tags: ["special-civic"] },
+            { week: "第10週", topic: "跨世代故事館：分享我的人生金句", content: "透過老照片與物件分享生命故事，將中文人生智慧透過AI輔助轉化為簡單英文短句，增進代間理解。", tags: ["sel", "ai"] },
+            { week: "第11週", topic: "快樂出遊去：交通問路與旅遊英語", content: "學習機場、車站指標辨識與問路技巧，模擬國外旅遊突發狀況處理，培養冷靜解決問題的情緒韌性。", tags: ["sel", "local"] },
+            { week: "第12週", topic: "彰化美食地圖：用英語介紹家鄉味", content: "介紹肉圓、爌肉飯等彰化特色小吃，練習用簡單形容詞描述口感，為家鄉美食做最棒的國民外交。", tags: ["local"] },
+            { week: "第13週", topic: "數位倫理與社群禮儀：暖心英文留言", content: "探討網路留言的情緒影響力，學習在社群媒體上用得體、具同理心的英語讚美與回應他人貼文。", tags: ["ai", "sel"] },
+            { week: "第14週", topic: "戶外走讀實戰：八卦山與古蹟導覽", content: "實際走出教室進行社區參訪，分組練習用英語介紹彰化在地景點與環境保護理念，落實學以致用。", tags: ["local"] },
+            { week: "第15週", topic: "音樂與電影裡的療癒英語", content: "欣賞經典英文老歌與勵志電影片段，解析歌詞與台詞中的情感張力，在藝術欣賞中自然習得語感。", tags: ["sel"] },
+            { week: "第16週", topic: "AI繪本共創：打造我們的英語小書", content: "跨世代分組合作，運用AI生成插圖並搭配簡單英文句子，共同創作一本屬於小組的暖心故事集。", tags: ["ai", "sel"] },
+            { week: "第17週", topic: "成果展彩排：自信站上大舞台", content: "進行期末成果發表排練，講師個別指導發音與肢體語言，小組互相加油打氣，緩解上台緊張情緒。", tags: ["sel"] },
+            { week: "第18週", topic: "「跨世代英語咖啡館」學習成果展", content: "學員分組展現英語短劇、家鄉美食介紹或AI繪本導讀，邀請親友共同見證18週的蛻變與學習喜悅。", tags: ["special-expo"] }
+        ];
+
+        // 渲染課表函式
+        function renderSyllabus(filterTag = 'all') {
+            const tbody = document.getElementById('syllabus-tbody');
+            tbody.innerHTML = '';
+
+            const filtered = filterTag === 'all' 
+                ? syllabusData 
+                : syllabusData.filter(item => item.tags.includes(filterTag));
+
+            filtered.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'transition-colors hover:bg-amber-50/40 break-inside-avoid';
+
+                // 第9週公民素養週特殊樣式
+                if (item.tags.includes('special-civic')) {
+                    tr.className = 'bg-slate-100/90 text-slate-700 break-inside-avoid';
+                    tr.innerHTML = `
+                        <td class="py-4 px-4 sm:px-6 font-bold text-slate-600 whitespace-nowrap">${item.week}</td>
+                        <td class="py-4 px-4 sm:px-6 font-bold text-slate-800">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-slate-200 text-slate-800 text-sm mr-1">🏛️</span>
+                            ${item.topic}
+                        </td>
+                        <td class="py-4 px-4 sm:px-6 font-medium text-slate-600">${item.content}</td>
+                    `;
+                } 
+                // 第18週成果展特殊樣式
+                else if (item.tags.includes('special-expo')) {
+                    tr.className = 'bg-gradient-to-r from-amber-50 to-rose-50 break-inside-avoid';
+                    tr.innerHTML = `
+                        <td class="py-4 px-4 sm:px-6 font-black text-rose-700 whitespace-nowrap">${item.week}</td>
+                        <td class="py-4 px-4 sm:px-6 font-black text-rose-800">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-700 text-sm mr-1">🎉 成果展</span>
+                            ${item.topic}
+                        </td>
+                        <td class="py-4 px-4 sm:px-6 text-slate-800 font-medium leading-relaxed">${item.content}</td>
+                    `;
+                } 
+                // 一般週次樣式
+                else {
+                    // 產生主題小徽章
+                    let badges = '';
+                    if (item.tags.includes('sel')) {
+                        badges += `<span class="inline-block px-2 py-0.5 rounded-md bg-rose-50 text-rose-600 text-xs font-bold border border-rose-200/70 mr-1.5 mb-1">社會情緒</span>`;
+                    }
+                    if (item.tags.includes('ai')) {
+                        badges += `<span class="inline-block px-2 py-0.5 rounded-md bg-teal-50 text-teal-700 text-xs font-bold border border-teal-200/70 mr-1.5 mb-1">AI與資訊</span>`;
+                    }
+                    if (item.tags.includes('local')) {
+                        badges += `<span class="inline-block px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200/70 mr-1.5 mb-1">在地生活</span>`;
+                    }
+
+                    tr.innerHTML = `
+                        <td class="py-4 px-4 sm:px-6 font-bold text-amber-700 whitespace-nowrap align-top">${item.week}</td>
+                        <td class="py-4 px-4 sm:px-6 font-bold text-slate-800 align-top">
+                            <div class="mb-1">${badges}</div>
+                            <div>${item.topic}</div>
+                        </td>
+                        <td class="py-4 px-4 sm:px-6 text-slate-700 leading-relaxed align-top">${item.content}</td>
+                    `;
+                }
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 篩選週次按鈕互動
+        function filterWeeks(tag, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'text-white', 'shadow-sm');
+                if (btn.textContent.includes('全部')) {
+                    btn.classList.add('bg-slate-100', 'text-slate-700');
+                }
+            });
+            btnElement.classList.remove('bg-slate-100', 'text-slate-700');
+            btnElement.classList.add('bg-slate-800', 'text-white', 'shadow-sm');
+            
+            renderSyllabus(tag);
+        }
+
+        // 字體大小切換功能 (方便長輩閱讀)
+        function setFontScale(scale, btnElement) {
+            document.documentElement.style.setProperty('--font-scale', scale);
+            
+            document.querySelectorAll('.font-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-amber-900', 'hover:bg-amber-200/60');
+            });
+            
+            btnElement.classList.remove('text-amber-900', 'hover:bg-amber-200/60');
+            btnElement.classList.add('bg-amber-600', 'text-white', 'shadow-sm');
+
+            const labels = { 1: '標準', 1.18: '放大', 1.35: '特大' };
+            showToast(`字體已切換為「${labels[scale]}」模式`);
+        }
+
+        // 顯示提示訊息框 (不使用 alert)
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // 一鍵複製完整課程文字稿 (使用 execCommand 相容 iframe 環境)
+        function copyCourseText() {
+            let text = `【彰化社區大學課程資料】\n`;
+            text += `課程名稱：玩轉AI英語力：暖心開口說\n\n`;
+            text += `課程理念：\n打破年齡與科技焦慮，結合AI數位工具與社會情緒學習，讓跨世代學員在溫暖互助中，從零壓力開口說到自信應用生活英語。\n\n`;
+            text += `課程目標：\n因應數位與雙語時代，本課結合基礎生活英語與AI語音辨識、資訊判讀知識，培養跨世代溝通、數位應用及情緒覺察技能。透過小組共學建立自信、同理與樂學態度，最終能以英語向世界介紹彰化在地文化，深化個人與社區、國際的溫暖連結。\n\n`;
+            text += `條件限制：\n本課程為初階生活應用程度，歡迎20至80歲對英語及數位科技有興趣的民眾報名。無須具備英文基礎或文法底子，僅需能辨識26個英文字母，並自備可上網之智慧型手機，抱持開放與樂於分享的心即可輕鬆參與。\n\n`;
+            text += `授課方式：\n團體互動及小組活動、案例討論與心得分享、影片欣賞及圖像教學、戶外參訪及環境關懷、講師示範與實際操作、個別指導與反覆練習、學員上台表演與展現、實物觀賞及樣品教學。\n\n`;
+            text += `發展計畫：\n未來將進階開設「彰化在地雙語導覽」與「跨世代數位故事館」，整合社大走讀課程與社區資源，培訓高齡與青年雙語志工。\n\n`;
+            text += `教學設計：\n第5週「AI翻譯官與情緒溫度計」：先以情緒圖卡暖身破冰，講師示範AI語音翻譯設定，分組演練點餐與表達感受，最後分享心得。\n\n`;
+            text += `課程大綱（第1~18週）：\n`;
+
+            syllabusData.forEach(item => {
+                text += `${item.week}｜${item.topic}：${item.content}\n`;
+            });
+
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast('已成功複製完整課程文字稿，可直接貼上使用！');
+            } catch (err) {
+                showToast('複製失敗，請手動選取文字複製。');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // 頁面載入時初始化課表
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSyllabus('all');
+        });
+    </script>
+</body>
+</html>

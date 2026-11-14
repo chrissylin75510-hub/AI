@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小怪獸情緒英語探索家｜圓周幼兒園 24週雙語探索課程</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Noto Sans TC 確保繁體中文清晰溫潤 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: '#FAF7F2',
+                        sand: '#EFE9DE',
+                        wood: '#C8A98E',
+                        'wood-dark': '#8C6D53',
+                        sage: '#7A9A82',
+                        'sage-light': '#E6EFE8',
+                        terracotta: '#D98A6C',
+                        'terracotta-light': '#F9EBE6',
+                        ochre: '#E2B45A',
+                        'ochre-light': '#FCF5E5',
+                        sky: '#7BA3B5',
+                        'sky-light': '#E8F1F5',
+                        charcoal: '#3E3A36',
+                        'warm-gray': '#6E6862'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #3E3A36;
+            font-family: 'Noto Sans TC', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 蒙特梭利自然木質紋理與柔和陰影 */
+        .montessori-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E8DFD3;
+            box-shadow: 0 8px 24px -6px rgba(140, 109, 83, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .montessori-card:hover {
+            box-shadow: 0 12px 28px -6px rgba(140, 109, 83, 0.14);
+        }
+
+        /* 溫和浮動動畫 */
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .float-slow {
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+        .float-delay {
+            animation: gentleFloat 4.5s ease-in-out 1.5s infinite;
+        }
+
+        /* 自訂捲軸 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D5C8B8;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8A692;
+        }
+
+        /* 列印 / 匯出 PDF 專屬最佳化樣式 */
+        @media print {
+            body {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                font-size: 11pt;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .montessori-card {
+                box-shadow: none !important;
+                border: 1px solid #CCCCCC !important;
+                break-inside: avoid;
+                margin-bottom: 12px !important;
+            }
+            header {
+                background: #FFFFFF !important;
+                border-bottom: 2px solid #8C6D53 !important;
+                padding-top: 10px !important;
+                padding-bottom: 15px !important;
+            }
+            /* 確保列印時顯示所有 24 週資料，忽略篩選隱藏 */
+            tr.syllabus-row {
+                display: table-row !important;
+                break-inside: avoid;
+            }
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+            th, td {
+                border: 1px solid #BBBBBB !important;
+                padding: 8px !important;
+            }
+            .print-header-note {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 提示訊息氣泡 (替代 alert) -->
+    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none no-print">
+        <div class="bg-charcoal text-cream px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-wood/30">
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-sage text-white text-sm font-bold">✓</span>
+            <span id="toastText" class="text-sm font-medium tracking-wide">已成功複製完整課程文字稿！</span>
+        </div>
+    </div>
+
+    <!-- 頂部功能操作列 -->
+    <nav class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-wood/20 no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+                <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-sage text-white font-bold text-lg shadow-sm">圓</span>
+                <div>
+                    <span class="font-bold text-charcoal text-sm sm:text-base block leading-tight">圓周幼兒園</span>
+                    <span class="text-xs text-warm-gray hidden sm:inline">蒙特梭利自然雙語與全人探索</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="copyFullText()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sand hover:bg-wood/25 text-charcoal text-xs sm:text-sm font-medium transition-colors border border-wood/30 cursor-pointer" title="複製全部課程資料為純文字格式">
+                    <svg class="w-4 h-4 text-wood-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                    </svg>
+                    <span>一鍵複製完整文字稿</span>
+                </button>
+
+                <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sage hover:bg-sage/90 text-white text-xs sm:text-sm font-medium transition-colors shadow-sm cursor-pointer" title="列印本頁或另存為 PDF 文件">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                    </svg>
+                    <span>列印 / 另存 PDF</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主視覺 Hero 區塊 -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-sand/70 via-cream to-cream pt-10 pb-12 sm:pt-14 sm:pb-16 border-b border-wood/15">
+        <!-- 柔和幾何背景裝飾 -->
+        <div class="absolute top-6 left-6 w-32 h-32 rounded-full bg-sage/10 blur-2xl pointer-events-none no-print"></div>
+        <div class="absolute bottom-4 right-10 w-44 h-44 rounded-full bg-terracotta/10 blur-2xl pointer-events-none no-print"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                <!-- 左側標題與核心標籤 -->
+                <div class="text-center lg:text-left max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-wood/30 text-wood-dark text-xs sm:text-sm font-bold mb-4 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+                        <span>圓周幼兒園｜專屬幼兒美語探索計畫</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-charcoal tracking-tight leading-tight mb-4">
+                        小怪獸情緒英語探索家
+                    </h1>
+
+                    <p class="text-base sm:text-xl font-bold text-sage mb-5 tracking-wide">
+                        圓周幼兒園 2–6歲雙語 × SEL × 資訊素養 24週探索課程
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs sm:text-sm font-medium">
+                        <span class="px-3.5 py-1.5 rounded-xl bg-sage-light text-charcoal border border-sage/20">👶 適齡對象：2–6 歲幼兒</span>
+                        <span class="px-3.5 py-1.5 rounded-xl bg-ochre-light text-charcoal border border-ochre/30">🗓️ 課程期程：完整 24 週</span>
+                        <span class="px-3.5 py-1.5 rounded-xl bg-terracotta-light text-charcoal border border-terracotta/20">🏫 授課地點：圓周幼兒園</span>
+                    </div>
+                </div>
+
+                <!-- 右側可愛柔和原創 SVG 小怪獸插畫 -->
+                <div class="flex items-center justify-center gap-4 sm:gap-6 no-print">
+                    <!-- 快樂綠小怪獸 -->
+                    <div class="float-slow flex flex-col items-center">
+                        <svg class="w-28 h-28 sm:w-32 sm:h-32 drop-shadow-sm" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 身體 -->
+                            <rect x="25" y="32" width="90" height="86" rx="42" fill="#8FB399"/>
+                            <!-- 肚子 -->
+                            <ellipse cx="70" cy="88" rx="28" ry="22" fill="#E6EFE8"/>
+                            <!-- 小角 -->
+                            <path d="M44 36L36 18L54 30" fill="#E2B45A"/>
+                            <path d="M96 36L104 18L86 30" fill="#E2B45A"/>
+                            <!-- 眼睛 -->
+                            <circle cx="53" cy="58" r="10" fill="#FFFFFF"/>
+                            <circle cx="87" cy="58" r="10" fill="#FFFFFF"/>
+                            <circle cx="55" cy="58" r="5" fill="#3E3A36"/>
+                            <circle cx="85" cy="58" r="5" fill="#3E3A36"/>
+                            <circle cx="57" cy="56" r="1.8" fill="#FFFFFF"/>
+                            <circle cx="87" cy="56" r="1.8" fill="#FFFFFF"/>
+                            <!-- 腮紅 -->
+                            <ellipse cx="42" cy="70" rx="6" ry="3.5" fill="#D98A6C" fill-opacity="0.5"/>
+                            <ellipse cx="98" cy="70" rx="6" ry="3.5" fill="#D98A6C" fill-opacity="0.5"/>
+                            <!-- 微笑 -->
+                            <path d="M58 72C62 79 78 79 82 72" stroke="#3E3A36" stroke-width="3.5" stroke-linecap="round"/>
+                            <!-- 小腳 -->
+                            <rect x="44" y="114" width="16" height="10" rx="5" fill="#7A9A82"/>
+                            <rect x="80" y="114" width="16" height="10" rx="5" fill="#7A9A82"/>
+                        </svg>
+                        <span class="mt-1 px-2.5 py-0.5 rounded-full bg-white/90 border border-sage/30 text-xs font-bold text-sage">I am Happy!</span>
+                    </div>
+
+                    <!-- 好奇橘小怪獸 (數位小偵探) -->
+                    <div class="float-delay flex flex-col items-center mt-6">
+                        <svg class="w-24 h-24 sm:w-28 sm:h-28 drop-shadow-sm" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 身體 -->
+                            <path d="M30 85C30 48 48 28 70 28C92 28 110 48 110 85C110 108 94 118 70 118C46 118 30 108 30 85Z" fill="#E39B7E"/>
+                            <!-- 天線 -->
+                            <line x1="70" y1="28" x2="70" y2="14" stroke="#8C6D53" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="70" cy="12" r="6" fill="#7BA3B5"/>
+                            <!-- 單眼大鏡框 -->
+                            <circle cx="70" cy="62" r="19" fill="#FFFFFF" stroke="#8C6D53" stroke-width="4"/>
+                            <circle cx="70" cy="62" r="9" fill="#3E3A36"/>
+                            <circle cx="73" cy="59" r="3" fill="#FFFFFF"/>
+                            <!-- 微笑與小牙齒 -->
+                            <path d="M55 88C60 94 80 94 85 88" stroke="#3E3A36" stroke-width="3.5" stroke-linecap="round"/>
+                            <path d="M62 91L65 96L68 91" fill="#FFFFFF"/>
+                            <path d="M72 91L75 96L78 91" fill="#FFFFFF"/>
+                        </svg>
+                        <span class="mt-1 px-2.5 py-0.5 rounded-full bg-white/90 border border-terracotta/30 text-xs font-bold text-terracotta">Rest Eyes!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+
+        <!-- 區塊一：課程核心資訊總覽 -->
+        <section aria-labelledby="info-heading">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-2 h-7 rounded-full bg-wood"></div>
+                <h2 id="info-heading" class="text-xl sm:text-2xl font-bold text-charcoal">課程核心理念與設計架構</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                
+                <!-- 1. 課程理念 -->
+                <article class="montessori-card rounded-2xl p-6 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-10 h-10 rounded-xl bg-sage-light text-sage flex items-center justify-center text-xl">🌱</span>
+                        <h3 class="text-lg font-bold text-charcoal">課程理念</h3>
+                    </div>
+                    <p class="text-charcoal/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        融合蒙特梭利生活探索與社會情緒學習，透過數位繪本與律動遊戲，讓幼兒在全美語環境中自然表達自我、建立科技好習慣，愛上開口說英語。
+                    </p>
+                </article>
+
+                <!-- 2. 課程目標 (佔兩欄寬度以容納完整內容) -->
+                <article class="montessori-card rounded-2xl p-6 md:col-span-2 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-10 h-10 rounded-xl bg-ochre-light text-wood-dark flex items-center justify-center text-xl">🎯</span>
+                        <h3 class="text-lg font-bold text-charcoal">課程目標</h3>
+                    </div>
+                    <p class="text-charcoal/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        因應雙語與數位時代趨勢，本課程結合雙語習得理論與社會情緒學習（SEL）框架，引導幼兒運用日常美語辨識情緒、學習合作分享，並培養健康的螢幕使用與資訊判讀萌芽力；進而將課堂所學帶入家庭與鄰里互動，建立自信、同理與友善的社群連結。
+                    </p>
+                </article>
+
+                <!-- 3. 條件限制 -->
+                <article class="montessori-card rounded-2xl p-6 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-10 h-10 rounded-xl bg-sky-light text-sky flex items-center justify-center text-xl">🧸</span>
+                        <h3 class="text-lg font-bold text-charcoal">條件限制</h3>
+                    </div>
+                    <p class="text-charcoal/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        本課程為初階探索設計，招收2至6歲對聲音、繪本與遊戲有興趣之幼兒（2至3歲幼幼階段建議由家長陪同共學）。學員無須具備任何英語或數位操作基礎，僅需具備基本生活自理與安全跟隨指令之能力即可參與。
+                    </p>
+                </article>
+
+                <!-- 4. 授課方式 -->
+                <article class="montessori-card rounded-2xl p-6 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-10 h-10 rounded-xl bg-terracotta-light text-terracotta flex items-center justify-center text-xl">🎨</span>
+                        <h3 class="text-lg font-bold text-charcoal">授課方式</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="px-3 py-1.5 rounded-xl bg-cream border border-wood/30 text-charcoal text-xs sm:text-sm font-medium">團體互動及小組活動</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-cream border border-wood/30 text-charcoal text-xs sm:text-sm font-medium">影片欣賞及圖像教學</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-cream border border-wood/30 text-charcoal text-xs sm:text-sm font-medium">講師示範與實際操作</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-cream border border-wood/30 text-charcoal text-xs sm:text-sm font-medium">學員上台表演與展現</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-cream border border-wood/30 text-charcoal text-xs sm:text-sm font-medium">實物觀賞及樣品教學</span>
+                    </div>
+                </article>
+
+                <!-- 5. 發展計畫 -->
+                <article class="montessori-card rounded-2xl p-6 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-10 h-10 rounded-xl bg-sage-light text-sage flex items-center justify-center text-xl">🚀</span>
+                        <h3 class="text-lg font-bold text-charcoal">發展計畫</h3>
+                    </div>
+                    <p class="text-charcoal/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        未來將按年齡與能力分階延伸至進階情緒劇場與小小數位主播，並整合園所節慶與社區親子共學日，打造帶得走的雙語生活圈。
+                    </p>
+                </article>
+
+            </div>
+
+            <!-- 教學設計亮點橫幅 (第12週範例) -->
+            <div class="mt-6 montessori-card rounded-2xl p-6 sm:p-7 bg-gradient-to-r from-ochre-light/80 via-white to-sage-light/60 border-l-4 border-l-terracotta">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-terracotta text-white flex items-center justify-center text-2xl shadow-sm">
+                        🔍
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                            <span class="px-2.5 py-0.5 rounded-md bg-terracotta/15 text-terracotta text-xs font-bold">教學設計亮點範例</span>
+                            <h3 class="text-base sm:text-lg font-bold text-charcoal">單堂教案實作流程示範</h3>
+                        </div>
+                        <p class="text-charcoal text-sm sm:text-base leading-relaxed font-medium">
+                            第12週：數位小偵探出發！先以繪本引導認識「螢幕時間與眼睛休息」句型，接著分組進行平板濾藍光與計時器實作遊戲，最後上台分享健康用眼小約定。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 區塊二：完整 1 至 24 週課程大綱互動表格 -->
+        <section aria-labelledby="syllabus-heading">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-1">
+                        <div class="w-2 h-7 rounded-full bg-sage"></div>
+                        <h2 id="syllabus-heading" class="text-xl sm:text-2xl font-bold text-charcoal">完整 1 至 24 週課程大綱</h2>
+                    </div>
+                    <p class="text-sm text-warm-gray pl-5">循序漸進融合日常美語、社會情緒學習（SEL）與幼兒資訊素養</p>
+                </div>
+
+                <!-- 關鍵字搜尋框 -->
+                <div class="relative w-full md:w-72 no-print">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        oninput="filterSyllabus()"
+                        placeholder="搜尋週次、情緒詞彙或主題..." 
+                        class="w-full pl-10 pr-9 py-2.5 rounded-xl bg-white border border-wood/40 text-sm text-charcoal placeholder-warm-gray/70 focus:outline-none focus:ring-2 focus:ring-sage/50 focus:border-sage shadow-sm"
+                    >
+                    <svg class="w-4 h-4 text-warm-gray absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-2.5 text-warm-gray hover:text-charcoal text-sm font-bold cursor-pointer" title="清除搜尋">✕</button>
+                </div>
+            </div>
+
+            <!-- 階段篩選按鈕列 -->
+            <div class="flex flex-wrap items-center gap-2 mb-5 no-print" role="tablist" aria-label="課程階段篩選">
+                <button onclick="setStageFilter('all')" data-stage="all" class="stage-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer bg-charcoal text-cream shadow-sm">
+                    全部 24 週
+                </button>
+                <button onclick="setStageFilter('stage1')" data-stage="stage1" class="stage-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer bg-white text-charcoal border border-wood/30 hover:bg-sand/60">
+                    第 1–6 週｜情緒啟蒙
+                </button>
+                <button onclick="setStageFilter('stage2')" data-stage="stage2" class="stage-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer bg-white text-charcoal border border-wood/30 hover:bg-sand/60">
+                    第 7–12 週｜生活與護眼
+                </button>
+                <button onclick="setStageFilter('stage3')" data-stage="stage3" class="stage-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer bg-white text-charcoal border border-wood/30 hover:bg-sand/60">
+                    第 13–18 週｜數位安全與團隊
+                </button>
+                <button onclick="setStageFilter('stage4')" data-stage="stage4" class="stage-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer bg-white text-charcoal border border-wood/30 hover:bg-sand/60">
+                    第 19–24 週｜同理整合與畢業
+                </button>
+            </div>
+
+            <!-- 篩選狀態提示 -->
+            <div class="flex items-center justify-between text-xs text-warm-gray mb-3 px-1 no-print">
+                <span id="resultCountText">目前顯示全部 24 週課程內容</span>
+                <span class="hidden sm:inline">提示：點擊上方「列印 / 另存 PDF」將自動完整展開 24 週表格</span>
+            </div>
+
+            <!-- 課程大綱表格容器 -->
+            <div class="montessori-card rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-sand/90 border-b border-wood/30 text-charcoal">
+                                <th class="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-bold whitespace-nowrap w-24 sm:w-28">週別</th>
+                                <th class="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-bold w-48 sm:w-64">主題</th>
+                                <th class="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-bold">內容</th>
+                            </tr>
+                        </thead>
+                        <tbody id="syllabusTableBody" class="divide-y divide-wood/15 text-sm sm:text-base">
+                            <!-- 由 JavaScript 動態渲染 1-24 週完整資料 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 無搜尋結果提示 -->
+                <div id="emptyState" class="hidden py-12 px-4 text-center">
+                    <div class="text-3xl mb-2">🔍</div>
+                    <p class="text-charcoal font-bold mb-1">找不到符合關鍵字的課程內容</p>
+                    <p class="text-sm text-warm-gray mb-4">請嘗試搜尋其他關鍵字（例如：Happy、護眼、繪本、數位），或重置篩選條件。</p>
+                    <button onclick="resetAllFilters()" class="px-4 py-2 rounded-xl bg-sage text-white text-sm font-medium hover:bg-sage/90 transition-colors cursor-pointer">
+                        顯示全部 24 週課程
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾資訊 -->
+    <footer class="bg-sand/80 border-t border-wood/20 py-8 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <p class="font-bold text-charcoal text-base">圓周幼兒園｜小怪獸情緒英語探索家</p>
+                <p class="text-xs sm:text-sm text-warm-gray mt-1">2–6歲雙語習得 × 社會情緒學習（SEL） × 幼兒資訊素養整合課程</p>
+            </div>
+            <div class="flex items-center gap-3 no-print">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2 rounded-xl bg-white border border-wood/30 text-xs sm:text-sm font-medium text-charcoal hover:bg-cream transition-colors cursor-pointer">
+                    ↑ 回到頂部
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 課程資料與互動邏輯腳本 -->
+    <script>
+        // 完整 1 至 24 週課程大綱資料庫（一字不漏精準收錄）
+        const syllabusData = [
+            {
+                weekNum: 1,
+                week: "第1週",
+                stage: "stage1",
+                stageLabel: "情緒啟蒙",
+                topic: "哈囉！我的情緒小怪獸",
+                content: "認識基礎問候語 Hello/Hi 與 Happy、Sad 情緒單字，透過鏡子表情模仿與情緒轉盤遊戲，練習用英語說出「I am happy」並認識新朋友。"
+            },
+            {
+                weekNum: 2,
+                week: "第2週",
+                stage: "stage1",
+                stageLabel: "情緒啟蒙",
+                topic: "顏色與心情魔法屋",
+                content: "結合蒙特梭利感官色板與英語色彩單字，引導幼兒將顏色與心情連結，透過分組調色實驗與繪本共讀，學習尊重每個人不同的心情顏色。"
+            },
+            {
+                weekNum: 3,
+                week: "第3週",
+                stage: "stage1",
+                stageLabel: "情緒啟蒙",
+                topic: "數位小耳朵：聽見好聲音",
+                content: "認識平板與音響等日常數位工具英語名稱，練習音量控制與傾聽禮儀，透過聲音猜謎遊戲培養專注力與友善輪流等待的團隊合作態度。"
+            },
+            {
+                weekNum: 4,
+                week: "第4週",
+                stage: "stage1",
+                stageLabel: "情緒啟蒙",
+                topic: "生氣火山不爆發",
+                content: "學習 Angry、Scared 等情緒詞彙與深呼吸安撫口訣「Breathe in, breathe out」，透過角色扮演演練冷靜角操作，學習用語言替代哭鬧表達需求。"
+            },
+            {
+                weekNum: 5,
+                week: "第5週",
+                stage: "stage1",
+                stageLabel: "情緒啟蒙",
+                topic: "分享快樂加倍多",
+                content: "圍繞玩具與點心分享主題，練習「Share with you」、「Thank you」禮貌句型，藉由小組合作搭建積木任務，體驗互助帶來的成就感。"
+            },
+            {
+                weekNum: 6,
+                week: "第6週",
+                stage: "stage1",
+                stageLabel: "情緒啟蒙",
+                topic: "螢幕時間小管家",
+                content: "導入資訊素養概念，認識「Time's up」、「Rest eyes」句型，透過沙漏計時器與護眼操律動，建立觀看數位動畫時不吵鬧、按時休息的好習慣。"
+            },
+            {
+                weekNum: 7,
+                week: "第7週",
+                stage: "stage2",
+                stageLabel: "生活與護眼",
+                topic: "我的身體會說話",
+                content: "學習五官與肢體動作英語單字，結合情緒律動歌曲，引導幼兒觀察自己與同伴的肢體語言，培養覺察他人感受的同理心與觀察力。"
+            },
+            {
+                weekNum: 8,
+                week: "第8週",
+                stage: "stage2",
+                stageLabel: "生活與護眼",
+                topic: "家人與愛的抱抱",
+                content: "介紹家庭成員英語稱謂與「I love you」表達句型，製作感恩小卡並錄製簡短英語語音祝福，學習善用數位錄音傳遞對家人的關愛。"
+            },
+            {
+                weekNum: 9,
+                week: "第9週",
+                stage: "stage2",
+                stageLabel: "生活與護眼",
+                topic: "遇見困難我不怕",
+                content: "透過繪本故事學習「Try again」、「Help me, please」求助與堅持句型，在教具挑戰關卡中鼓勵彼此打氣，建立挫折容忍力與正向自我對話。"
+            },
+            {
+                weekNum: 10,
+                week: "第10週",
+                stage: "stage2",
+                stageLabel: "生活與護眼",
+                topic: "真假圖片大考驗",
+                content: "透過趣味動物與奇幻合成圖片對比，學習「Real」與「Fake」基礎概念，引導幼兒提問與觀察細節，培養早期資訊辨識與不輕信的好奇心。"
+            },
+            {
+                weekNum: 11,
+                week: "第11週",
+                stage: "stage2",
+                stageLabel: "生活與護眼",
+                topic: "禮貌小天使逛社區",
+                content: "模擬社區商店與公園情境，練習「Excuse me」、「Please」等社交英語，並認識社區中幫助我們的職業角色，增進對生活環境的認同感。"
+            },
+            {
+                weekNum: 12,
+                week: "第12週",
+                stage: "stage2",
+                stageLabel: "生活與護眼",
+                topic: "數位小偵探出發！",
+                content: "認識「螢幕時間與眼睛休息」英語句型，分組體驗數位計時器設定與遠眺綠樹護眼任務，並上台示範健康使用3C的正確姿勢與約定。",
+                highlight: true
+            },
+            {
+                weekNum: 13,
+                week: "第13週",
+                stage: "stage3",
+                stageLabel: "數位安全與團隊",
+                topic: "動物王國的情緒派對",
+                content: "結合動物單字與聲音模仿，探討不同動物的習性與情緒反應，透過小組面具戲劇排演，練習在團隊中協調角色與欣賞同伴的創意表現。"
+            },
+            {
+                weekNum: 14,
+                week: "第14週",
+                stage: "stage3",
+                stageLabel: "數位安全與團隊",
+                topic: "數位小腳印：保護小秘密",
+                content: "以繪本比喻個人隱私與安全界線，學習「My name」、「Safe」等基礎自我保護詞彙，教導幼兒不隨意點擊陌生畫面並主動尋求大人協助。"
+            },
+            {
+                weekNum: 15,
+                week: "第15週",
+                stage: "stage3",
+                stageLabel: "數位安全與團隊",
+                topic: "美味食物與感恩之心",
+                content: "認識常見蔬果與健康飲食英語，結合餐桌禮儀與珍惜食物宣導，透過實物觸摸與盲猜遊戲，培養感恩農夫與不挑食的生活好品格。"
+            },
+            {
+                weekNum: 16,
+                week: "第16週",
+                stage: "stage3",
+                stageLabel: "數位安全與團隊",
+                topic: "環保小尖兵愛地球",
+                content: "學習垃圾分類與愛護自然相關英語單字，進行校園落葉與回收物分類實作，體會愛護環境與社區整潔是每個人都能參與的責任。"
+            },
+            {
+                weekNum: 17,
+                week: "第17週",
+                stage: "stage3",
+                stageLabel: "數位安全與團隊",
+                topic: "自信小舞台彩排日",
+                content: "整合前幾週所學的情緒句型、英語歌謠與數位小約定，分組進行成果發表彩排，練習給予同伴掌聲與正向回饋，緩解上台緊張感。"
+            },
+            {
+                weekNum: 18,
+                week: "第18週",
+                stage: "stage3",
+                stageLabel: "數位安全與團隊",
+                topic: "快樂探索家成果派對",
+                content: "邀請家長共同參與，學員上台展現英語情緒繪本劇與護眼律動，並與親子共同完成「家庭數位與情緒公約」，將課堂學習延伸至家庭生活。"
+            },
+            {
+                weekNum: 19,
+                week: "第19週",
+                stage: "stage4",
+                stageLabel: "同理整合與畢業",
+                topic: "心情天氣預報員",
+                content: "學習 Sunny、Rainy、Cloudy 等天氣英語單字，結合平板天氣圖示，引導幼兒將每日情緒比喻為天氣變化，練習同理同伴的陰雨心情並送上溫暖擁抱與打氣。"
+            },
+            {
+                weekNum: 20,
+                week: "第20週",
+                stage: "stage4",
+                stageLabel: "同理整合與畢業",
+                topic: "數位小攝影師的眼睛",
+                content: "認識「Look」、「Smile」、「Ask first」句型，透過實體玩具相機與平板鏡頭觀察校園角落，學習拍照前先徵得他人同意的尊重與數位肖像禮貌。"
+            },
+            {
+                weekNum: 21,
+                week: "第21週",
+                stage: "stage4",
+                stageLabel: "同理整合與畢業",
+                topic: "解決衝突小高手",
+                content: "模擬搶玩具與排隊爭執情境，練習「My turn」、「Your turn」與「Sorry」溝通句型，透過分組協商拼圖任務，培養冷靜傾聽與共同解決問題的能力。"
+            },
+            {
+                weekNum: 22,
+                week: "第22週",
+                stage: "stage4",
+                stageLabel: "同理整合與畢業",
+                topic: "聲音與影像的秘密",
+                content: "體驗變聲器與趣味濾鏡特效，學習「Same」與「Different」對比概念，引導幼兒察覺螢幕裡的影像與聲音可以被改變，建立不盲目相信網路畫面的初步認知。"
+            },
+            {
+                weekNum: 23,
+                week: "第23週",
+                stage: "stage4",
+                stageLabel: "同理整合與畢業",
+                topic: "我的感恩能量樹",
+                content: "結合自然葉片拓印與英語祝福詞彙，製作個人成長與感恩小書，鼓勵幼兒上台用簡單美語感謝老師、同伴與科技工具帶來的學習樂趣，凝聚正向班級向心力。"
+            },
+            {
+                weekNum: 24,
+                week: "第24週",
+                stage: "stage4",
+                stageLabel: "同理整合與畢業",
+                topic: "小怪獸雙語畢業典禮",
+                content: "舉辦全學期學習回顧展，學員化身小小雙語導覽員，向家長介紹蒙特梭利教具作品與護眼小約定，頒發「情緒與數位小達人」獎狀，為24週旅程畫下自信句點。"
+            }
+        ];
+
+        let currentStage = 'all';
+
+        // 取得階段徽章樣式
+        function getStageBadgeStyle(stage) {
+            switch(stage) {
+                case 'stage1': return 'bg-sage-light text-sage border-sage/30';
+                case 'stage2': return 'bg-ochre-light text-wood-dark border-ochre/40';
+                case 'stage3': return 'bg-sky-light text-sky border-sky/30';
+                case 'stage4': return 'bg-terracotta-light text-terracotta border-terracotta/30';
+                default: return 'bg-sand text-charcoal border-wood/30';
+            }
+        }
+
+        // 渲染表格列
+        function renderSyllabusTable() {
+            const tbody = document.getElementById('syllabusTableBody');
+            tbody.innerHTML = '';
+
+            syllabusData.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = `syllabus-row transition-colors hover:bg-cream/80 ${item.highlight ? 'bg-ochre-light/30' : 'bg-white'}`;
+                tr.dataset.stage = item.stage;
+                tr.dataset.search = `${item.week} ${item.topic} ${item.content}`.toLowerCase();
+
+                const badgeStyle = getStageBadgeStyle(item.stage);
+                const highlightTag = item.highlight 
+                    ? `<span class="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-bold bg-terracotta/15 text-terracotta no-print">★ 教案示範週</span>` 
+                    : '';
+
+                tr.innerHTML = `
+                    <td class="py-4 px-4 sm:px-6 align-top whitespace-nowrap">
+                        <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-lg text-xs font-bold border ${badgeStyle}">
+                            ${item.week}
+                        </span>
+                    </td>
+                    <td class="py-4 px-4 sm:px-6 align-top font-bold text-charcoal">
+                        <div>${item.topic}</div>
+                        ${highlightTag}
+                    </td>
+                    <td class="py-4 px-4 sm:px-6 align-top text-charcoal/90 leading-relaxed">
+                        ${item.content}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 切換階段篩選
+        function setStageFilter(stage) {
+            currentStage = stage;
+
+            // 更新按鈕外觀
+            document.querySelectorAll('.stage-btn').forEach(btn => {
+                if (btn.dataset.stage === stage) {
+                    btn.className = 'stage-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer bg-charcoal text-cream shadow-sm';
+                } else {
+                    btn.className = 'stage-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer bg-white text-charcoal border border-wood/30 hover:bg-sand/60';
+                }
+            });
+
+            filterSyllabus();
+        }
+
+        // 執行篩選與搜尋
+        function filterSyllabus() {
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const query = searchInput.value.trim().toLowerCase();
+
+            // 顯示/隱藏清除按鈕
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            const rows = document.querySelectorAll('.syllabus-row');
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const matchStage = (currentStage === 'all') || (row.dataset.stage === currentStage);
+                const matchSearch = (query === '') || row.dataset.search.includes(query);
+
+                if (matchStage && matchSearch) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // 更新筆數與空狀態
+            const emptyState = document.getElementById('emptyState');
+            const resultCountText = document.getElementById('resultCountText');
+
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+                resultCountText.textContent = '目前顯示 0 週課程內容';
+            } else {
+                emptyState.classList.add('hidden');
+                resultCountText.textContent = visibleCount === 24 
+                    ? '目前顯示全部 24 週課程內容' 
+                    : `目前篩選顯示 ${visibleCount} 週課程內容`;
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filterSyllabus();
+        }
+
+        function resetAllFilters() {
+            document.getElementById('searchInput').value = '';
+            setStageFilter('all');
+        }
+
+        // 顯示提示氣泡
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // 一鍵複製完整純文字課程資料（使用相容 iFrame 的 document.execCommand('copy')）
+        function copyFullText() {
+            let fullText = `【圓周幼兒園｜24週幼兒美語課程計畫】\n\n`;
+            fullText += `■ 課程名稱：小怪獸情緒英語探索家\n`;
+            fullText += `■ 課程理念：融合蒙特梭利生活探索與社會情緒學習，透過數位繪本與律動遊戲，讓幼兒在全美語環境中自然表達自我、建立科技好習慣，愛上開口說英語。\n`;
+            fullText += `■ 課程目標：因應雙語與數位時代趨勢，本課程結合雙語習得理論與社會情緒學習（SEL）框架，引導幼兒運用日常美語辨識情緒、學習合作分享，並培養健康的螢幕使用與資訊判讀萌芽力；進而將課堂所學帶入家庭與鄰里互動，建立自信、同理與友善的社群連結。\n`;
+            fullText += `■ 條件限制：本課程為初階探索設計，招收2至6歲對聲音、繪本與遊戲有興趣之幼兒（2至3歲幼幼階段建議由家長陪同共學）。學員無須具備任何英語或數位操作基礎，僅需具備基本生活自理與安全跟隨指令之能力即可參與。\n`;
+            fullText += `■ 授課方式：團體互動及小組活動、影片欣賞及圖像教學、講師示範與實際操作、學員上台表演與展現、實物觀賞及樣品教學\n`;
+            fullText += `■ 發展計畫：未來將按年齡與能力分階延伸至進階情緒劇場與小小數位主播，並整合園所節慶與社區親子共學日，打造帶得走的雙語生活圈。\n`;
+            fullText += `■ 教學設計：第12週：數位小偵探出發！先以繪本引導認識「螢幕時間與眼睛休息」句型，接著分組進行平板濾藍光與計時器實作遊戲，最後上台分享健康用眼小約定。\n\n`;
+            fullText += `■ 課程大綱（第1至24週）：\n`;
+
+            syllabusData.forEach(item => {
+                fullText += `${item.week}｜${item.topic}：${item.content}\n`;
+            });
+
+            // 建立暫存 textarea 進行複製
+            const textArea = document.createElement('textarea');
+            textArea.value = fullText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast('已成功複製完整 24 週課程文字稿！');
+                } else {
+                    showToast('複製失敗，請手動選取文字複製。');
+                }
+            } catch (err) {
+                showToast('複製發生錯誤，請手動選取文字複製。');
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        // 初始化渲染
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSyllabusTable();
+        });
+    </script>
+</body>
+</html>

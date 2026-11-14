@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小怪獸情緒英語探索家｜圓周幼兒園 24週 EFL 雙語探索課程</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Noto Sans TC 與 Zen Maru Gothic 營造現代圓潤童趣感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Zen Maru Gothic"', '"Noto Sans TC"', 'sans-serif'],
+                        display: ['"Zen Maru Gothic"', '"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        sunshine: '#FFD166',
+                        'sunshine-light': '#FFF8E6',
+                        mint: '#06D6A0',
+                        'mint-dark': '#059669',
+                        'mint-light': '#E6FBF5',
+                        sky: '#118AB2',
+                        'sky-light': '#E7F5FA',
+                        coral: '#FF7B6B',
+                        'coral-light': '#FFF0EE',
+                        lavender: '#9B87F5',
+                        'lavender-light': '#F3F0FF',
+                        ink: '#2B2D42',
+                        'ink-muted': '#5C6079',
+                        paper: '#FFFDF9'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFFDF9;
+            color: #2B2D42;
+            font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 馬卡龍活力卡片與立體微陰影 */
+        .efl-card {
+            background-color: #FFFFFF;
+            border: 2px solid #F1ECE1;
+            box-shadow: 0 10px 25px -5px rgba(43, 45, 66, 0.06), 0 4px 10px -2px rgba(43, 45, 66, 0.03);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .efl-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px -6px rgba(17, 138, 178, 0.12);
+        }
+
+        /* 可愛波浪與圓點背景 */
+        .polka-bg {
+            background-image: radial-gradient(#FFD166 1.5px, transparent 1.5px), radial-gradient(#06D6A0 1.5px, #FFFDF9 1.5px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        /* 彈跳浮動動畫 */
+        @keyframes monsterBounce {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        @keyframes monsterBounceAlt {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(-2.5deg); }
+        }
+        .monster-float-1 {
+            animation: monsterBounce 3.6s ease-in-out infinite;
+        }
+        .monster-float-2 {
+            animation: monsterBounceAlt 4.2s ease-in-out 0.8s infinite;
+        }
+
+        /* 自訂捲軸 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFDF9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6D3E0;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #118AB2;
+        }
+
+        /* 列印 / 匯出 PDF 專屬最佳化樣式 */
+        @media print {
+            body {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                font-size: 10.5pt;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .efl-card {
+                box-shadow: none !important;
+                border: 1px solid #CCCCCC !important;
+                transform: none !important;
+                break-inside: avoid;
+                margin-bottom: 10px !important;
+            }
+            header {
+                background: #FFFFFF !important;
+                border-bottom: 2px solid #118AB2 !important;
+                padding-top: 8px !important;
+                padding-bottom: 12px !important;
+            }
+            /* 列印時強制以表格呈現所有 24 週完整資料 */
+            #tableContainer {
+                display: block !important;
+            }
+            #gridContainer {
+                display: none !important;
+            }
+            tr.syllabus-row {
+                display: table-row !important;
+                break-inside: avoid;
+            }
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+            th, td {
+                border: 1px solid #BBBBBB !important;
+                padding: 7px 9px !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 提示訊息氣泡 (替代 alert) -->
+    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none no-print">
+        <div class="bg-ink text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-mint">
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-mint text-ink text-sm font-black">✓</span>
+            <span id="toastText" class="text-sm font-bold tracking-wide">已成功複製完整課程文字稿！</span>
+        </div>
+    </div>
+
+    <!-- 頂部功能導覽與行政工具列 -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-sunshine/40 shadow-sm no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            <!-- 園所識別 -->
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky to-mint text-white font-black text-lg flex items-center justify-center shadow-sm">
+                    圓
+                </div>
+                <div>
+                    <span class="font-black text-ink text-sm sm:text-base block leading-tight">圓周幼兒園</span>
+                    <span class="text-xs font-bold text-sky hidden sm:inline">EFL 全美語 × SEL × 數位素養</span>
+                </div>
+            </div>
+
+            <!-- 行政與家長工具按鈕 -->
+            <div class="flex items-center gap-2 sm:gap-2.5">
+                <button onclick="copyFullText()" class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl bg-sunshine-light hover:bg-sunshine/40 text-ink text-xs sm:text-sm font-bold transition-all border-2 border-sunshine cursor-pointer" title="複製全部課程資料為純文字格式">
+                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                    </svg>
+                    <span>一鍵複製完整文字稿</span>
+                </button>
+
+                <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl bg-sky hover:bg-sky/90 text-white text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer" title="列印本頁或另存為 PDF 文件">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                    </svg>
+                    <span class="hidden md:inline">列印 / 另存 PDF</span>
+                    <span class="md:hidden">列印</span>
+                </button>
+
+                <button onclick="openConsultModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-coral hover:bg-coral/90 text-white text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer">
+                    <span>🎈 體驗諮詢</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主視覺 Hero 區塊 -->
+    <header class="relative overflow-hidden polka-bg pt-10 pb-12 sm:pt-14 sm:pb-16 border-b-2 border-sunshine/30">
+        <!-- 柔和馬卡龍光暈背景 -->
+        <div class="absolute -top-10 -left-10 w-52 h-52 rounded-full bg-sunshine/25 blur-3xl pointer-events-none no-print"></div>
+        <div class="absolute top-10 right-0 w-64 h-64 rounded-full bg-mint/20 blur-3xl pointer-events-none no-print"></div>
+        <div class="absolute bottom-0 left-1/3 w-56 h-56 rounded-full bg-sky/15 blur-3xl pointer-events-none no-print"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                <!-- 左側標題與核心理論標籤 -->
+                <div class="text-center lg:text-left max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border-2 border-sky/30 text-sky text-xs sm:text-sm font-black mb-4 shadow-sm">
+                        <span class="w-2.5 h-2.5 rounded-full bg-coral animate-ping"></span>
+                        <span>圓周幼兒園｜24週沉浸式 EFL 美語課程</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-black text-ink tracking-tight leading-tight mb-4">
+                        小怪獸情緒英語探索家
+                    </h1>
+
+                    <p class="text-base sm:text-xl font-bold text-ink-muted mb-5 leading-relaxed">
+                        以 <span class="text-sky font-black">EFL 外語英語教學</span> 為核心，結合 <span class="text-coral font-black">社會情緒學習（SEL）</span> 與 <span class="text-mint-dark font-black">數位素養</span>，讓孩子自然開口說英語！
+                    </p>
+
+                    <!-- 基本資訊徽章列 -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs sm:text-sm font-bold mb-5">
+                        <span class="px-3.5 py-1.5 rounded-2xl bg-sunshine-light text-ink border-2 border-sunshine">👶 2至6歲幼兒（2–3歲建議家長共學）</span>
+                        <span class="px-3.5 py-1.5 rounded-2xl bg-mint-light text-ink border-2 border-mint">🗓️ 完整 24 週課程</span>
+                        <span class="px-3.5 py-1.5 rounded-2xl bg-coral-light text-ink border-2 border-coral">🏫 圓周幼兒園</span>
+                    </div>
+
+                    <!-- 教學理論關鍵字標籤 -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs font-bold">
+                        <span class="px-3 py-1 rounded-full bg-sky text-white shadow-xs">EFL 外語英語教學</span>
+                        <span class="px-3 py-1 rounded-full bg-mint-dark text-white shadow-xs">SLA 第二語言習得</span>
+                        <span class="px-3 py-1 rounded-full bg-coral text-white shadow-xs">TPR 全身反應教學法</span>
+                        <span class="px-3 py-1 rounded-full bg-lavender text-white shadow-xs">CLT 溝通式教學法</span>
+                        <span class="px-3 py-1 rounded-full bg-amber-500 text-white shadow-xs">SEL 社會情緒學習</span>
+                        <span class="px-3 py-1 rounded-full bg-ink text-white shadow-xs">資訊與數位素養</span>
+                    </div>
+                </div>
+
+                <!-- 右側馬卡龍小怪獸 SVG 插畫 -->
+                <div class="flex items-center justify-center gap-4 sm:gap-6 no-print">
+                    <!-- 薄荷綠情緒小怪獸 (TPR & SEL) -->
+                    <div class="monster-float-1 flex flex-col items-center">
+                        <div class="bg-white/95 px-3 py-1 rounded-full border-2 border-mint text-xs font-black text-mint-dark shadow-sm mb-1">
+                            "I am Happy!" 😊
+                        </div>
+                        <svg class="w-28 h-28 sm:w-32 sm:h-32 drop-shadow-md" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 身體 -->
+                            <rect x="24" y="32" width="92" height="86" rx="44" fill="#06D6A0"/>
+                            <!-- 肚子 -->
+                            <ellipse cx="70" cy="88" rx="30" ry="22" fill="#E6FBF5"/>
+                            <!-- 陽光黃小角 -->
+                            <path d="M44 36L34 16L54 30" fill="#FFD166"/>
+                            <path d="M96 36L106 16L86 30" fill="#FFD166"/>
+                            <!-- 大眼睛 -->
+                            <circle cx="52" cy="58" r="11" fill="#FFFFFF"/>
+                            <circle cx="88" cy="58" r="11" fill="#FFFFFF"/>
+                            <circle cx="54" cy="58" r="5.5" fill="#2B2D42"/>
+                            <circle cx="86" cy="58" r="5.5" fill="#2B2D42"/>
+                            <circle cx="56" cy="56" r="2" fill="#FFFFFF"/>
+                            <circle cx="88" cy="56" r="2" fill="#FFFFFF"/>
+                            <!-- 腮紅 -->
+                            <ellipse cx="40" cy="70" rx="6" ry="3.5" fill="#FF7B6B" fill-opacity="0.6"/>
+                            <ellipse cx="100" cy="70" rx="6" ry="3.5" fill="#FF7B6B" fill-opacity="0.6"/>
+                            <!-- 開心微笑 -->
+                            <path d="M56 72C61 81 79 81 84 72" stroke="#2B2D42" stroke-width="4" stroke-linecap="round"/>
+                            <!-- 小腳 -->
+                            <rect x="44" y="114" width="16" height="10" rx="5" fill="#059669"/>
+                            <rect x="80" y="114" width="16" height="10" rx="5" fill="#059669"/>
+                        </svg>
+                    </div>
+
+                    <!-- 珊瑚橘數位小偵探怪獸 (Digital Literacy) -->
+                    <div class="monster-float-2 flex flex-col items-center mt-6">
+                        <div class="bg-white/95 px-3 py-1 rounded-full border-2 border-coral text-xs font-black text-coral shadow-sm mb-1">
+                            "Rest Eyes!" 👀
+                        </div>
+                        <svg class="w-26 h-26 sm:w-28 sm:h-28 drop-shadow-md" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 身體 -->
+                            <path d="M28 84C28 46 46 26 70 26C94 26 112 46 112 84C112 108 95 118 70 118C45 118 28 108 28 84Z" fill="#FF7B6B"/>
+                            <!-- 天空藍信號天線 -->
+                            <line x1="70" y1="26" x2="70" y2="12" stroke="#118AB2" stroke-width="4.5" stroke-linecap="round"/>
+                            <circle cx="70" cy="11" r="6.5" fill="#FFD166" stroke="#118AB2" stroke-width="2.5"/>
+                            <!-- 偵探放大鏡單眼 -->
+                            <circle cx="70" cy="62" r="20" fill="#FFFFFF" stroke="#118AB2" stroke-width="4.5"/>
+                            <circle cx="70" cy="62" r="9.5" fill="#2B2D42"/>
+                            <circle cx="73" cy="59" r="3" fill="#FFFFFF"/>
+                            <!-- 微笑與可愛小牙 -->
+                            <path d="M54 88C60 95 80 95 86 88" stroke="#2B2D42" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M62 91L65 97L68 91" fill="#FFFFFF"/>
+                            <path d="M72 91L75 97L78 91" fill="#FFFFFF"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+
+        <!-- 區塊一：EFL 課程核心規劃架構 -->
+        <section aria-labelledby="core-heading">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="w-3 h-8 rounded-full bg-gradient-to-b from-sky to-mint"></span>
+                <h2 id="core-heading" class="text-2xl sm:text-3xl font-black text-ink">EFL 課程核心規劃架構</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                
+                <!-- 1. 課程理念 -->
+                <article class="efl-card rounded-3xl p-6 flex flex-col border-t-4 border-t-sky">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-11 h-11 rounded-2xl bg-sky-light text-sky flex items-center justify-center text-2xl font-bold">💬</span>
+                        <h3 class="text-lg font-black text-ink">課程理念</h3>
+                    </div>
+                    <p class="text-ink/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        以 EFL（外語英語教學）的沈浸式與自然溝通法為本，結合社會情緒學習（SEL）與數位素養，透過情境式互動與多元感官刺激，讓幼兒在全美語環境中自然習得外語，建立自信表達與健康的科技使用習慣。
+                    </p>
+                </article>
+
+                <!-- 2. 課程目標 -->
+                <article class="efl-card rounded-3xl p-6 md:col-span-2 flex flex-col border-t-4 border-t-mint">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-11 h-11 rounded-2xl bg-mint-light text-mint-dark flex items-center justify-center text-2xl font-bold">🎯</span>
+                        <h3 class="text-lg font-black text-ink">課程目標</h3>
+                    </div>
+                    <p class="text-ink/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        奠基於第二語言習得（SLA）與全身反應教學法（TPR），引導幼兒在真實語境中理解並輸出情緒與數位素養詞彙；透過小組協作與英語口語互動，培養同理心、抗挫力與正向人際連結，進而將語言能力實踐於社區與家庭生活。
+                    </p>
+                </article>
+
+                <!-- 3. 條件限制 -->
+                <article class="efl-card rounded-3xl p-6 flex flex-col border-t-4 border-t-sunshine">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-11 h-11 rounded-2xl bg-sunshine-light text-amber-600 flex items-center justify-center text-2xl font-bold">🧸</span>
+                        <h3 class="text-lg font-black text-ink">條件限制</h3>
+                    </div>
+                    <p class="text-ink/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        本課程為初階 EFL 啟蒙設計，招收 2 至 6 歲幼兒（2 至 3 歲幼幼階段建議家長陪同共學）。學員無須具備任何英語基礎，僅需具備基本生活自理與聽從團體指令之注意力，即可輕鬆融入全美語互動情境。
+                    </p>
+                </article>
+
+                <!-- 4. 授課方式 -->
+                <article class="efl-card rounded-3xl p-6 flex flex-col border-t-4 border-t-coral">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-11 h-11 rounded-2xl bg-coral-light text-coral flex items-center justify-center text-2xl font-bold">🎨</span>
+                        <h3 class="text-lg font-black text-ink">授課方式</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="px-3 py-1.5 rounded-xl bg-sky-light/70 border border-sky/20 text-ink text-xs sm:text-sm font-bold">👥 團體互動及小組活動</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-mint-light/70 border border-mint/30 text-ink text-xs sm:text-sm font-bold">🎬 影片欣賞及圖像教學</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-sunshine-light border border-sunshine/60 text-ink text-xs sm:text-sm font-bold">🙌 講師示範與實際操作</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-coral-light/70 border border-coral/25 text-ink text-xs sm:text-sm font-bold">🎤 學員上台表演與展現</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-lavender-light border border-lavender/25 text-ink text-xs sm:text-sm font-bold">🔍 實物觀賞及樣品教學</span>
+                    </div>
+                </article>
+
+                <!-- 5. 發展計畫 -->
+                <article class="efl-card rounded-3xl p-6 flex flex-col border-t-4 border-t-lavender">
+                    <div class="flex items-center gap-3 mb-3.5">
+                        <span class="w-11 h-11 rounded-2xl bg-lavender-light text-lavender flex items-center justify-center text-2xl font-bold">🚀</span>
+                        <h3 class="text-lg font-black text-ink">發展計畫</h3>
+                    </div>
+                    <p class="text-ink/90 text-sm sm:text-base leading-relaxed flex-grow">
+                        未來將依 EFL 級數與年齡層向上延伸至中階情緒劇場與小小數位播客班，並結合園所節慶與親子共學日，建立具延續性與整合性的全美語生活圈。
+                    </p>
+                </article>
+
+            </div>
+
+            <!-- 6. 教學設計重點亮點卡片 (第12週示範) -->
+            <div class="mt-6 efl-card rounded-3xl p-6 sm:p-7 bg-gradient-to-r from-sunshine-light via-white to-sky-light border-2 border-sunshine">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-coral text-white flex items-center justify-center text-3xl shadow-md">
+                        🕵️
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                            <span class="px-3 py-0.5 rounded-full bg-coral text-white text-xs font-black tracking-wide">教學設計實作範例</span>
+                            <h3 class="text-base sm:text-lg font-black text-ink">EFL 情境互動與數位護眼教案示範</h3>
+                        </div>
+                        <p class="text-ink text-sm sm:text-base leading-relaxed font-bold">
+                            第12週：數位小偵探出發！先以 EFL 互動問答引導認識「Screen time & Rest eyes」句型，接著分組進行平板計時器與遠眺護眼任務，最後上台用簡單英語分享健康用眼小約定。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 區塊二：第 1 至 24 週完整課程大綱互動區 -->
+        <section aria-labelledby="syllabus-heading">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-1">
+                        <span class="w-3 h-8 rounded-full bg-gradient-to-b from-coral to-sunshine"></span>
+                        <h2 id="syllabus-heading" class="text-2xl sm:text-3xl font-black text-ink">第 1 至 24 週完整課程大綱</h2>
+                    </div>
+                    <p class="text-sm font-medium text-ink-muted pl-6">結合 TPR、CLT 溝通式英語教學、社會情緒學習（SEL）與早期資訊素養</p>
+                </div>
+
+                <!-- 搜尋框與檢視切換工具 -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 no-print">
+                    <!-- 即時關鍵字搜尋框 -->
+                    <div class="relative w-full sm:w-64">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            oninput="applyFilters()"
+                            placeholder="搜尋週次、單字或句型..." 
+                            class="w-full pl-10 pr-8 py-2.5 rounded-2xl bg-white border-2 border-sky/30 text-sm font-medium text-ink placeholder-ink-muted/60 focus:outline-none focus:border-sky shadow-xs"
+                        >
+                        <svg class="w-4 h-4 text-sky absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-2.5 text-ink-muted hover:text-coral text-sm font-black cursor-pointer" title="清除搜尋">✕</button>
+                    </div>
+
+                    <!-- 檢視模式切換按鈕 -->
+                    <div class="inline-flex rounded-2xl bg-white p-1 border-2 border-gray-200 shadow-xs self-start sm:self-auto" role="group" aria-label="檢視模式切換">
+                        <button id="viewTableBtn" onclick="switchView('table')" class="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-ink text-white transition-all cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            <span>表格檢視</span>
+                        </button>
+                        <button id="viewGridBtn" onclick="switchView('grid')" class="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 text-ink-muted hover:text-ink transition-all cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            <span>卡片網格</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 篩選控制面板 (階段篩選 + 主題類型篩選) -->
+            <div class="bg-white rounded-3xl p-4 sm:p-5 border-2 border-gray-100 shadow-xs mb-5 space-y-3.5 no-print">
+                <!-- a. 階段篩選按鈕 -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-black text-ink-muted mr-1">📅 學習階段：</span>
+                    <button onclick="setStageFilter('all')" data-stage="all" class="stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-ink text-white shadow-xs">
+                        全部 1–24 週
+                    </button>
+                    <button onclick="setStageFilter('stage1')" data-stage="stage1" class="stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-mint-light/60 text-ink hover:bg-mint-light border border-mint/30">
+                        第一階段 1–6 週：情緒與數位啟蒙
+                    </button>
+                    <button onclick="setStageFilter('stage2')" data-stage="stage2" class="stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-sunshine-light text-ink hover:bg-sunshine/40 border border-sunshine">
+                        第二階段 7–12 週：同理互動與護眼偵探
+                    </button>
+                    <button onclick="setStageFilter('stage3')" data-stage="stage3" class="stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-sky-light/60 text-ink hover:bg-sky-light border border-sky/30">
+                        第三階段 13–18 週：戲劇表達與成果派對
+                    </button>
+                    <button onclick="setStageFilter('stage4')" data-stage="stage4" class="stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-coral-light/60 text-ink hover:bg-coral-light border border-coral/30">
+                        第四階段 19–24 週：生活應用與雙語畢業
+                    </button>
+                </div>
+
+                <!-- b. 主題類型標籤篩選 -->
+                <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-gray-100">
+                    <span class="text-xs font-black text-ink-muted mr-1">🏷️ 核心素養：</span>
+                    <button onclick="setTopicFilter('all')" data-topic="all" class="topic-btn px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer bg-sky text-white">
+                        全部主題
+                    </button>
+                    <button onclick="setTopicFilter('sel')" data-topic="sel" class="topic-btn px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer bg-gray-100 text-ink-muted hover:bg-coral-light hover:text-coral">
+                        ❤️ 情緒表達 SEL
+                    </button>
+                    <button onclick="setTopicFilter('digital')" data-topic="digital" class="topic-btn px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer bg-gray-100 text-ink-muted hover:bg-sky-light hover:text-sky">
+                        📱 數位素養
+                    </button>
+                    <button onclick="setTopicFilter('efl')" data-topic="efl" class="topic-btn px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer bg-gray-100 text-ink-muted hover:bg-mint-light hover:text-mint-dark">
+                        🗣️ EFL 口語生活
+                    </button>
+                </div>
+            </div>
+
+            <!-- 篩選結果統計列 -->
+            <div class="flex items-center justify-between text-xs font-bold text-ink-muted mb-3 px-2 no-print">
+                <span id="resultCountText">目前顯示全部 24 週課程內容</span>
+                <span class="hidden sm:inline text-sky">💡 列印或另存 PDF 時將自動展開完整 24 週表格</span>
+            </div>
+
+            <!-- 檢視 A：響應式精緻表格檢視 -->
+            <div id="tableContainer" class="efl-card rounded-3xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-sky-light via-mint-light/60 to-sunshine-light/70 border-b-2 border-sky/20 text-ink">
+                                <th class="py-4 px-4 sm:px-6 text-xs sm:text-sm font-black whitespace-nowrap w-24 sm:w-28">週</th>
+                                <th class="py-4 px-4 sm:px-6 text-xs sm:text-sm font-black w-52 sm:w-64">主題</th>
+                                <th class="py-4 px-4 sm:px-6 text-xs sm:text-sm font-black">內容</th>
+                            </tr>
+                        </thead>
+                        <tbody id="syllabusTableBody" class="divide-y divide-gray-100 text-sm sm:text-base">
+                            <!-- 由 JavaScript 動態渲染 1-24 週 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 檢視 B：卡片網格檢視 -->
+            <div id="gridContainer" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 no-print">
+                <!-- 由 JavaScript 動態渲染卡片 -->
+            </div>
+
+            <!-- 無搜尋結果空狀態 -->
+            <div id="emptyState" class="hidden efl-card rounded-3xl py-12 px-4 text-center">
+                <div class="text-4xl mb-3">👾</div>
+                <p class="text-ink font-black text-lg mb-1">小怪獸找不到符合條件的課程內容</p>
+                <p class="text-sm text-ink-muted mb-5">試試看搜尋其他單字（例如：TPR、Happy、Screen time、繪本），或重設篩選條件。</p>
+                <button onclick="resetAllFilters()" class="px-5 py-2.5 rounded-2xl bg-sky text-white text-sm font-bold hover:bg-sky/90 transition-colors cursor-pointer shadow-sm">
+                    顯示全部 24 週課程
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾招生諮詢與體驗預約行動呼籲區 -->
+    <footer class="bg-gradient-to-b from-white to-sky-light/60 border-t-2 border-sky/20 py-10 mt-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mint-light text-mint-dark text-xs font-black mb-2">
+                        <span>🌟 圓周幼兒園 2–6歲雙語啟蒙招生中</span>
+                    </div>
+                    <h3 class="font-black text-ink text-xl sm:text-2xl">小怪獸情緒英語探索家</h3>
+                    <p class="text-xs sm:text-sm font-medium text-ink-muted mt-1">
+                        EFL 外語英語教學 × 社會情緒學習（SEL） × 數位與資訊素養 24 週完整課程
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-3 no-print">
+                    <button onclick="openConsultModal()" class="px-6 py-3 rounded-2xl bg-coral hover:bg-coral/90 text-white text-sm sm:text-base font-black shadow-md transition-transform hover:scale-105 cursor-pointer">
+                        🎈 立即預約試聽與課程諮詢
+                    </button>
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-3 rounded-2xl bg-white border-2 border-gray-200 text-xs sm:text-sm font-bold text-ink hover:bg-gray-50 transition-colors cursor-pointer">
+                        ↑ 回到頂部
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 家長招生諮詢與體驗預約互動彈窗 (Modal) -->
+    <div id="consultModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ink/50 backdrop-blur-xs no-print" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 border-4 border-sunshine shadow-2xl relative transform transition-all">
+            <button onclick="closeConsultModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-coral-light text-ink-muted hover:text-coral font-black flex items-center justify-center cursor-pointer" aria-label="關閉視窗">
+                ✕
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-sunshine-light border-2 border-sunshine flex items-center justify-center text-2xl">
+                    🎈
+                </div>
+                <div>
+                    <h3 id="modalTitle" class="text-xl font-black text-ink">課程諮詢與體驗預約</h3>
+                    <p class="text-xs font-bold text-sky">圓周幼兒園｜小怪獸情緒英語探索家</p>
+                </div>
+            </div>
+
+            <form id="consultForm" onsubmit="submitConsultForm(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-black text-ink mb-1">寶貝暱稱 / 姓名 <span class="text-coral">*</span></label>
+                    <input type="text" required placeholder="例如：小宇" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-gray-200 text-sm focus:outline-none focus:border-sky">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-black text-ink mb-1">寶貝年齡層 <span class="text-coral">*</span></label>
+                        <select required class="w-full px-3 py-2.5 rounded-xl border-2 border-gray-200 text-sm bg-white focus:outline-none focus:border-sky">
+                            <option value="2-3">2–3 歲（親子共學）</option>
+                            <option value="3-4">3–4 歲（小班階段）</option>
+                            <option value="4-5">4–5 歲（中班階段）</option>
+                            <option value="5-6">5–6 歲（大班階段）</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black text-ink mb-1">家長聯絡電話 <span class="text-coral">*</span></label>
+                        <input type="tel" required placeholder="0912-345-678" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-gray-200 text-sm focus:outline-none focus:border-sky">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-black text-ink mb-1">想了解的重點或備註</label>
+                    <textarea rows="2" placeholder="例如：想預約週末體驗課、詢問班級人數..." class="w-full px-3.5 py-2 rounded-xl border-2 border-gray-200 text-sm focus:outline-none focus:border-sky"></textarea>
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeConsultModal()" class="px-4 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-ink-muted text-sm font-bold cursor-pointer">
+                        取消
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-mint-dark hover:bg-mint-dark/90 text-white text-sm font-black shadow-sm cursor-pointer">
+                        送出預約申請 ✓
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 課程資料與互動邏輯腳本 -->
+    <script>
+        // 完整第 1 至 24 週 EFL 課程大綱資料庫（精準對應最新 EFL 版本，無蒙特梭利元素）
+        const syllabusData = [
+            {
+                weekNum: 1,
+                week: "第1週",
+                stage: "stage1",
+                tags: ["sel", "efl"],
+                topic: "哈囉！我的情緒小怪獸",
+                content: "運用 TPR（全身反應教學法）與互動問候語 Hello/Hi 與 Happy、Sad 結合，透過鏡子表情模仿與情緒轉盤，練習用英語說出簡單情緒狀態並認識新同學。"
+            },
+            {
+                weekNum: 2,
+                week: "第2週",
+                stage: "stage1",
+                tags: ["sel", "efl"],
+                topic: "顏色與心情魔法屋",
+                content: "導入 EFL 視覺輔助教學，將色彩單字與情緒連結，透過分組調色遊戲與英語繪本共讀，學習尊重同伴不同的心情顏色與喜好表達。"
+            },
+            {
+                weekNum: 3,
+                week: "第3週",
+                stage: "stage1",
+                tags: ["digital", "sel", "efl"],
+                topic: "數位小耳朵：聽見好聲音",
+                content: "介紹音響與平板等日常數位工具的 EFL 基礎詞彙，練習音量控制與輪流等待（Take turns）口語指令，培養專注力與友善團隊態度。"
+            },
+            {
+                weekNum: 4,
+                week: "第4週",
+                stage: "stage1",
+                tags: ["sel", "efl"],
+                topic: "生氣火山不爆發",
+                content: "學習 Angry、Scared 等情緒詞彙與深呼吸口訣「Breathe in, breathe out」，透過角色扮演演練冷靜策略，學會用英語口語替代哭鬧表達需求。"
+            },
+            {
+                weekNum: 5,
+                week: "第5週",
+                stage: "stage1",
+                tags: ["sel", "efl"],
+                topic: "分享快樂加倍多",
+                content: "圍繞玩具與點心分享主題，運用 EFL 互動句型「Share with you」、「Thank you」，藉由小組合作拼圖任務，體驗互助帶來的成就感。"
+            },
+            {
+                weekNum: 6,
+                week: "第6週",
+                stage: "stage1",
+                tags: ["digital", "efl"],
+                topic: "螢幕時間小管家",
+                content: "導入早期資訊素養，學習「Time's up」、「Rest eyes」英語指令，透過沙漏計時器與護眼律動，建立觀看數位影音時按時休息的好習慣。"
+            },
+            {
+                weekNum: 7,
+                week: "第7週",
+                stage: "stage2",
+                tags: ["sel", "efl"],
+                topic: "我的身體會說話",
+                content: "結合五官與肢體動作的 EFL 韻謠（Chants），引導幼兒觀察自己與同伴的肢體語言，培養覺察他人感受的同理心與觀察力。"
+            },
+            {
+                weekNum: 8,
+                week: "第8週",
+                stage: "stage2",
+                tags: ["sel", "digital", "efl"],
+                topic: "家人與愛的抱抱",
+                content: "介紹家庭成員英語稱謂與「I love you」表達句型，製作感恩小卡並錄製簡短英語語音祝福，學習運用數位工具傳遞對家人的關愛。"
+            },
+            {
+                weekNum: 9,
+                week: "第9週",
+                stage: "stage2",
+                tags: ["sel", "efl"],
+                topic: "遇見困難我不怕",
+                content: "透過溝通式教學法（CLT）學習「Try again」、「Help me, please」求助與堅持句型，在互動闖關中互相打氣，建立挫折容忍力。"
+            },
+            {
+                weekNum: 10,
+                week: "第10週",
+                stage: "stage2",
+                tags: ["digital", "efl"],
+                topic: "真假圖片大考驗",
+                content: "藉由趣味動物與合成圖片對比，學習「Real」與「Fake」基礎詞彙，引導幼兒觀察細節並勇於提問，培養早期數位思辨萌芽力。"
+            },
+            {
+                weekNum: 11,
+                week: "第11週",
+                stage: "stage2",
+                tags: ["efl", "sel"],
+                topic: "禮貌小天使逛社區",
+                content: "模擬商店與公園情境，練習「Excuse me」、「Please」等社交 EFL 常用句型，認識社區中的職業角色，增進生活環境認同感。"
+            },
+            {
+                weekNum: 12,
+                week: "第12週",
+                stage: "stage2",
+                tags: ["digital", "efl"],
+                topic: "數位小偵探出發！",
+                content: "練習「Screen time」相關英語句型，分組體驗計時器設定與遠眺護眼任務，並上台示範健康使用 3C 的正確姿勢與約定。",
+                highlight: true
+            },
+            {
+                weekNum: 13,
+                week: "第13週",
+                stage: "stage3",
+                tags: ["sel", "efl"],
+                topic: "動物王國的情緒派對",
+                content: "結合動物單字與聲音模仿，探討不同動物情緒反應，透過小組面具戲劇排演，練習在 EFL 團體中協調角色與欣賞同伴表現。"
+            },
+            {
+                weekNum: 14,
+                week: "第14週",
+                stage: "stage3",
+                tags: ["digital", "efl"],
+                topic: "數位小腳印：保護小秘密",
+                content: "以情境對話比喻個人隱私與安全界線，學習「Safe」、「My name」等基礎詞彙，教導幼兒不隨意點擊陌生畫面並主動尋求協助。"
+            },
+            {
+                weekNum: 15,
+                week: "第15週",
+                stage: "stage3",
+                tags: ["efl", "sel"],
+                topic: "美味食物與感恩之心",
+                content: "學習常見蔬果與健康飲食英語詞彙，結合餐桌禮儀與珍惜食物對話，透過盲猜遊戲，培養感恩與不挑食的好習慣。"
+            },
+            {
+                weekNum: 16,
+                week: "第16週",
+                stage: "stage3",
+                tags: ["efl"],
+                topic: "環保小尖兵愛地球",
+                content: "學習垃圾分類相關英語單字，進行校園落葉與回收物分類實作，體會愛護環境是每個人都能參與的責任。"
+            },
+            {
+                weekNum: 17,
+                week: "第17週",
+                stage: "stage3",
+                tags: ["sel", "efl"],
+                topic: "自信小舞台彩排日",
+                content: "整合前幾週所學的情緒句型、英語韻謠與數位約定，分組進行成果發表彩排，練習給予同伴掌聲與正向英語回饋。"
+            },
+            {
+                weekNum: 18,
+                week: "第18週",
+                stage: "stage3",
+                tags: ["sel", "digital", "efl"],
+                topic: "快樂探索家成果派對",
+                content: "邀請家長參與，學員上台展現英語情緒短劇與護眼律動，並共同完成「家庭數位與英語公約」，將課堂學習延伸至家庭。"
+            },
+            {
+                weekNum: 19,
+                week: "第19週",
+                stage: "stage4",
+                tags: ["sel", "digital", "efl"],
+                topic: "心情天氣預報員",
+                content: "學習 Sunny、Rainy、Cloudy 等天氣單字，結合數位天氣圖示，將每日情緒比喻為天氣，練習用英語表達心情並送上溫暖打氣。"
+            },
+            {
+                weekNum: 20,
+                week: "第20週",
+                stage: "stage4",
+                tags: ["digital", "sel", "efl"],
+                topic: "數位小攝影師的眼睛",
+                content: "認識「Look」、「Smile」、「Ask first」句型，透過實體相機觀察校園，學習拍照前先徵得他人同意的尊重與數位禮貌。"
+            },
+            {
+                weekNum: 21,
+                week: "第21週",
+                stage: "stage4",
+                tags: ["sel", "efl"],
+                topic: "解決衝突小高手",
+                content: "模擬搶玩具與排隊爭執情境，練習「My turn」、「Your turn」、「Sorry」溝通句型，透過分組協商培養解決問題能力。"
+            },
+            {
+                weekNum: 22,
+                week: "第22週",
+                stage: "stage4",
+                tags: ["digital", "efl"],
+                topic: "聲音與影像的秘密",
+                content: "體驗變聲器與濾鏡特效，學習「Same」與「Different」對比，引導幼兒察覺數位影音可被改變，建立不盲目相信畫面的認知。"
+            },
+            {
+                weekNum: 23,
+                week: "第23週",
+                stage: "stage4",
+                tags: ["sel", "efl"],
+                topic: "我的感恩能量樹",
+                content: "結合自然葉片與英語祝福詞彙，製作個人成長感恩小書，鼓勵幼兒上台用簡單美語感謝老師與同伴，凝聚班級向心力。"
+            },
+            {
+                weekNum: 24,
+                week: "第24週",
+                stage: "stage4",
+                tags: ["sel", "digital", "efl"],
+                topic: "小怪獸雙語畢業典禮",
+                content: "舉辦全學期學習回顧展，學員化身小小雙語導覽員向家長介紹成果，頒發「情緒與數位小達人」獎狀，為 24 週旅程畫下句點。"
+            }
+        ];
+
+        let currentStage = 'all';
+        let currentTopic = 'all';
+        let currentView = 'table';
+
+        // 取得階段徽章樣式
+        function getStageBadgeStyle(stage) {
+            switch(stage) {
+                case 'stage1': return 'bg-mint-light text-mint-dark border-mint/40';
+                case 'stage2': return 'bg-sunshine-light text-amber-700 border-sunshine';
+                case 'stage3': return 'bg-sky-light text-sky border-sky/30';
+                case 'stage4': return 'bg-coral-light text-coral border-coral/30';
+                default: return 'bg-gray-100 text-ink border-gray-300';
+            }
+        }
+
+        // 取得主題標籤中文與樣式
+        function renderTopicPills(tags) {
+            const map = {
+                sel: { label: '❤️ SEL情緒', cls: 'bg-coral-light text-coral' },
+                digital: { label: '📱 數位素養', cls: 'bg-sky-light text-sky' },
+                efl: { label: '🗣️ EFL口語', cls: 'bg-mint-light text-mint-dark' }
+            };
+            return tags.map(t => `<span class="inline-block px-2 py-0.5 rounded-md text-[11px] font-bold ${map[t].cls}">${map[t].label}</span>`).join(' ');
+        }
+
+        // 渲染表格與卡片網格
+        function renderSyllabus() {
+            const tbody = document.getElementById('syllabusTableBody');
+            const grid = document.getElementById('gridContainer');
+            tbody.innerHTML = '';
+            grid.innerHTML = '';
+
+            syllabusData.forEach(item => {
+                const badgeStyle = getStageBadgeStyle(item.stage);
+                const pillsHtml = renderTopicPills(item.tags);
+                const searchData = `${item.week} ${item.topic} ${item.content}`.toLowerCase();
+                const tagsString = item.tags.join(',');
+
+                // 1. 渲染表格列
+                const tr = document.createElement('tr');
+                tr.className = `syllabus-row transition-colors hover:bg-sky-light/25 ${item.highlight ? 'bg-sunshine-light/50' : 'bg-white'}`;
+                tr.dataset.stage = item.stage;
+                tr.dataset.tags = tagsString;
+                tr.dataset.search = searchData;
+
+                const highlightBadge = item.highlight 
+                    ? `<span class="inline-block mt-1 px-2 py-0.5 rounded-md text-[11px] font-black bg-coral text-white no-print">★ 教案示範週</span>` 
+                    : '';
+
+                tr.innerHTML = `
+                    <td class="py-4 px-4 sm:px-6 align-top whitespace-nowrap">
+                        <span class="inline-flex items-center justify-center px-3 py-1 rounded-xl text-xs font-black border-2 ${badgeStyle}">
+                            ${item.week}
+                        </span>
+                    </td>
+                    <td class="py-4 px-4 sm:px-6 align-top">
+                        <div class="font-black text-ink text-base mb-1.5">${item.topic}</div>
+                        <div class="flex flex-wrap gap-1 no-print">${pillsHtml}</div>
+                        ${highlightBadge}
+                    </td>
+                    <td class="py-4 px-4 sm:px-6 align-top text-ink/90 leading-relaxed">
+                        ${item.content}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+
+                // 2. 渲染卡片網格項目
+                const card = document.createElement('article');
+                card.className = `syllabus-card efl-card rounded-3xl p-5 flex flex-col justify-between ${item.highlight ? 'border-coral bg-sunshine-light/30' : ''}`;
+                card.dataset.stage = item.stage;
+                card.dataset.tags = tagsString;
+                card.dataset.search = searchData;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-xl text-xs font-black border-2 ${badgeStyle}">${item.week}</span>
+                            ${item.highlight ? '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-coral text-white">★ 教案示範週</span>' : ''}
+                        </div>
+                        <h4 class="text-lg font-black text-ink mb-2">${item.topic}</h4>
+                        <p class="text-sm text-ink/90 leading-relaxed mb-4">${item.content}</p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex flex-wrap gap-1.5">
+                        ${pillsHtml}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 切換檢視模式（表格 vs 卡片網格）
+        function switchView(view) {
+            currentView = view;
+            const tableContainer = document.getElementById('tableContainer');
+            const gridContainer = document.getElementById('gridContainer');
+            const tableBtn = document.getElementById('viewTableBtn');
+            const gridBtn = document.getElementById('viewGridBtn');
+
+            if (view === 'table') {
+                tableContainer.classList.remove('hidden');
+                gridContainer.classList.add('hidden');
+                gridContainer.classList.remove('grid');
+
+                tableBtn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-ink text-white transition-all cursor-pointer';
+                gridBtn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 text-ink-muted hover:text-ink transition-all cursor-pointer';
+            } else {
+                tableContainer.classList.add('hidden');
+                gridContainer.classList.remove('hidden');
+                gridContainer.classList.add('grid');
+
+                gridBtn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-ink text-white transition-all cursor-pointer';
+                tableBtn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 text-ink-muted hover:text-ink transition-all cursor-pointer';
+            }
+            applyFilters();
+        }
+
+        // 設定階段篩選
+        function setStageFilter(stage) {
+            currentStage = stage;
+            document.querySelectorAll('.stage-btn').forEach(btn => {
+                if (btn.dataset.stage === stage) {
+                    btn.className = 'stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-ink text-white shadow-xs';
+                } else {
+                    const baseStyles = {
+                        all: 'bg-gray-100 text-ink hover:bg-gray-200',
+                        stage1: 'bg-mint-light/60 text-ink hover:bg-mint-light border border-mint/30',
+                        stage2: 'bg-sunshine-light text-ink hover:bg-sunshine/40 border border-sunshine',
+                        stage3: 'bg-sky-light/60 text-ink hover:bg-sky-light border border-sky/30',
+                        stage4: 'bg-coral-light/60 text-ink hover:bg-coral-light border border-coral/30'
+                    };
+                    btn.className = `stage-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${baseStyles[btn.dataset.stage]}`;
+                }
+            });
+            applyFilters();
+        }
+
+        // 設定主題標籤篩選
+        function setTopicFilter(topic) {
+            currentTopic = topic;
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                if (btn.dataset.topic === topic) {
+                    btn.className = 'topic-btn px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer bg-sky text-white shadow-xs';
+                } else {
+                    btn.className = 'topic-btn px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer bg-gray-100 text-ink-muted hover:bg-gray-200 hover:text-ink';
+                }
+            });
+            applyFilters();
+        }
+
+        // 綜合執行篩選與搜尋
+        function applyFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const query = searchInput.value.trim().toLowerCase();
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            const rows = document.querySelectorAll('.syllabus-row');
+            const cards = document.querySelectorAll('.syllabus-card');
+            let visibleCount = 0;
+
+            rows.forEach((row, idx) => {
+                const card = cards[idx];
+                const matchStage = (currentStage === 'all') || (row.dataset.stage === currentStage);
+                const matchTopic = (currentTopic === 'all') || row.dataset.tags.split(',').includes(currentTopic);
+                const matchSearch = (query === '') || row.dataset.search.includes(query);
+
+                if (matchStage && matchTopic && matchSearch) {
+                    row.style.display = '';
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                    card.style.display = 'none';
+                }
+            });
+
+            const emptyState = document.getElementById('emptyState');
+            const tableContainer = document.getElementById('tableContainer');
+            const gridContainer = document.getElementById('gridContainer');
+            const resultCountText = document.getElementById('resultCountText');
+
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+                gridContainer.classList.add('hidden');
+                resultCountText.textContent = '目前顯示 0 週課程內容';
+            } else {
+                emptyState.classList.add('hidden');
+                if (currentView === 'table') {
+                    tableContainer.classList.remove('hidden');
+                } else {
+                    gridContainer.classList.remove('hidden');
+                }
+                resultCountText.textContent = visibleCount === 24 
+                    ? '目前顯示全部 24 週課程內容' 
+                    : `目前篩選顯示 ${visibleCount} 週課程內容`;
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+
+        function resetAllFilters() {
+            document.getElementById('searchInput').value = '';
+            setStageFilter('all');
+            setTopicFilter('all');
+        }
+
+        // 提示訊息氣泡控制
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
+        }
+
+        // 一鍵複製完整純文字課程資料（相容 iFrame 的 document.execCommand('copy')）
+        function copyFullText() {
+            let fullText = `【圓周幼兒園｜24週 EFL 幼兒美語課程計畫】\n\n`;
+            fullText += `■ 課程名稱：小怪獸情緒英語探索家\n`;
+            fullText += `■ 課程理念：以 EFL（外語英語教學）的沈浸式與自然溝通法為本，結合社會情緒學習（SEL）與數位素養，透過情境式互動與多元感官刺激，讓幼兒在全美語環境中自然習得外語，建立自信表達與健康的科技使用習慣。\n`;
+            fullText += `■ 課程目標：奠基於第二語言習得（SLA）與全身反應教學法（TPR），引導幼兒在真實語境中理解並輸出情緒與數位素養詞彙；透過小組協作與英語口語互動，培養同理心、抗挫力與正向人際連結，進而將語言能力實踐於社區與家庭生活。\n`;
+            fullText += `■ 條件限制：本課程為初階 EFL 啟蒙設計，招收 2 至 6 歲幼兒（2 至 3 歲幼幼階段建議家長陪同共學）。學員無須具備任何英語基礎，僅需具備基本生活自理與聽從團體指令之注意力，即可輕鬆融入全美語互動情境。\n`;
+            fullText += `■ 授課方式：團體互動及小組活動、影片欣賞及圖像教學、講師示範與實際操作、學員上台表演與展現、實物觀賞及樣品教學\n`;
+            fullText += `■ 發展計畫：未來將依 EFL 級數與年齡層向上延伸至中階情緒劇場與小小數位播客班，並結合園所節慶與親子共學日，建立具延續性與整合性的全美語生活圈。\n`;
+            fullText += `■ 教學設計：第12週：數位小偵探出發！先以 EFL 互動問答引導認識「Screen time & Rest eyes」句型，接著分組進行平板計時器與遠眺護眼任務，最後上台用簡單英語分享健康用眼小約定。\n\n`;
+            fullText += `■ 課程大綱（第1至24週）：\n`;
+
+            syllabusData.forEach(item => {
+                fullText += `${item.week}｜${item.topic}：${item.content}\n`;
+            });
+
+            const textArea = document.createElement('textarea');
+            textArea.value = fullText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast('已成功複製完整 24 週 EFL 課程文字稿！');
+                } else {
+                    showToast('複製失敗，請手動選取文字複製。');
+                }
+            } catch (err) {
+                showToast('複製發生錯誤，請手動選取文字複製。');
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        // 家長諮詢彈窗控制
+        function openConsultModal() {
+            const modal = document.getElementById('consultModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeConsultModal() {
+            const modal = document.getElementById('consultModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function submitConsultForm(e) {
+            e.preventDefault();
+            closeConsultModal();
+            document.getElementById('consultForm').reset();
+            showToast('預約申請已送出！圓周幼兒園老師將盡快與您聯繫 🎈');
+        }
+
+        // 點擊彈窗背景關閉
+        document.getElementById('consultModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeConsultModal();
+            }
+        });
+
+        // 頁面載入完成初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSyllabus();
+        });
+    </script>
+</body>
+</html>
